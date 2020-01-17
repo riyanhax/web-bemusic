@@ -1,0 +1,401 @@
+@import "../../../../scss/variables";
+
+playlist {
+  display: block;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
+
+  > .scroll-container {
+    padding: 25px;
+
+    @media only screen and (max-width: $tablet) {
+      padding: 0 0 25px 0;
+
+      track-list{
+        padding: 0 25px 0 25px;
+      }
+
+      track-list > .mobile-track-list-row > .track-info > .track-name {
+        white-space: normal;
+        overflow: unset;
+        text-overflow: unset;
+      }
+
+      track-list > .mobile-track-list-row > .track-info > .artist-name {
+        white-space: normal;
+        overflow: unset;
+        text-overflow: unset;
+      }
+    }
+
+    .main-buttons.main-buttons-mobile{
+      position: fixed;
+      top: 43px;
+      display: none;
+      z-index: 9999;
+      opacity: 0;
+      -webkit-transition: opacity 0.3s;
+      -moz-transition: opacity 0.3s;
+      transition: opacity 0.3s; 
+    }
+
+    &.btn-play-static{
+      .main-buttons.main-buttons-mobile{
+        display: block;
+        opacity: 1;
+
+        button {
+          padding: 10px 0;
+          border: 2px solid transparent;
+          border-radius: 25px;
+          color: $wp-text-color-100;
+          text-transform: uppercase;
+          min-width: 130px;
+    
+          @media only screen and (max-width: $tablet) {
+            border-radius: 7px;
+            text-transform: none;
+            font-weight: 500;
+            padding: 6px 20px 2px;
+          }
+    
+          &.play-button {
+            background-color: $site-accent-color;
+            border-color: $site-accent-color;
+            margin-right: 15px;
+    
+            > svg-icon {
+              width: 16px;
+              height: 16px;
+              display: inline-block;
+              vertical-align: middle;
+            }
+    
+            @media only screen and (max-width: $tablet) {
+              margin-right: 0;
+              > svg-icon {
+                width: 28px;
+                height: 28px;
+                margin-bottom: 4px;
+                margin-right: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .fixed-header{
+      position: fixed;
+      width: 102%;        
+      display: none;
+
+      justify-content: center;
+      align-items: center;
+      top: 0px;
+      background-color: $wp-bg-color-500;
+      padding-top: 3px;
+      z-index: 99;
+      opacity: 0;
+      -webkit-transition: opacity 0.3s;
+      -moz-transition: opacity 0.3s;
+      transition: opacity 0.3s; 
+
+      >.back-button-mobile{
+        margin-left: 20px;
+        margin-right: auto;
+      }
+      >.artist-name{
+        margin: 0 auto;
+        font-size: 1.5em;
+        height: 2em;
+        line-height: 2em;
+        padding: 0 5px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+      }
+      >.more-button-mobile{
+        margin-left: auto;
+        margin-right: 20px;
+      }
+    }
+  
+    &.header-static{
+      .fixed-header{
+        display: flex;
+        opacity: 1;
+      }    
+    }
+  }
+
+  header.playlist-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0 20px;
+    position: relative;
+
+    @media only screen and (max-width: $tablet) {
+      padding: 50px 0 10px;
+      margin-bottom: 10px;
+    }
+
+    >.more-button-mobile{
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+  
+      @media only screen and (max-width: $tablet) {
+        display: block;
+      }
+    }
+
+    >.back-button-mobile{
+      display: none;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+  
+      @media only screen and (max-width: $tablet) {
+        display: block;
+      }
+    }
+
+    .wrapper-img-small{
+      display: none;
+
+      .img-small{
+        // width: 150px;
+        // height: 150px;
+        max-width: 100%;
+        max-height: 100%;      
+        filter: blur(0px);
+      }
+
+      @media only screen and (max-width: $tablet) {  
+        display: block;            
+        margin: auto;        
+        width: 150px;
+        height: 150px;
+      }  
+    }
+
+    &:before {
+      position: absolute;
+      content: "";
+      background: linear-gradient(to bottom,transparent -80%, $wp-bg-color-500 100%);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+
+    > .meta {      
+      filter: blur(0px);
+      text-align: center;
+
+      > .album-name {
+        font-size: 4.2rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+
+      > .artist-name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.54rem;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        color: inherit;
+        
+        >span{
+          display: inline-block;
+        }
+
+        >img{
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-right: 10px;
+          display: inline-block;
+        }
+      }
+
+      > .meta-item {
+        font-size: 1.5rem;        
+
+        > .value {        
+          font-weight: 500;
+          color:  $wp-text-color-300;
+        }
+      }
+
+      button {
+        padding: 10px 0;
+        border: 2px solid transparent;
+        border-radius: 25px;
+        color: $wp-text-color-100;
+        text-transform: uppercase;
+        min-width: 130px;
+  
+        @media only screen and (max-width: $tablet) {
+          border-radius: 7px;
+          text-transform: none;
+          font-weight: 500;
+          padding: 6px 20px 2px;
+        }
+  
+        &.play-button {
+          background-color: $site-accent-color;
+          border-color: $site-accent-color;
+          margin-right: 15px;
+  
+          > svg-icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+          }
+  
+          @media only screen and (max-width: $tablet) {
+            margin-right: 0;
+            > svg-icon {
+              width: 28px;
+              height: 28px;
+              margin-bottom: 4px;
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+
+    }
+
+    @media only screen and (max-width: $tablet) {
+      flex-direction: column;
+      align-items: center;
+
+      > .meta {        
+        > .album-name {
+          font-size: 2.5rem;
+        }
+      }
+    }
+
+  }
+
+  .header {
+    display: flex;
+    margin-bottom: 20px;
+
+    > img {
+      width: 160px;
+      height: 160px;
+    }
+
+    > .meta {
+      margin-left: 15px;
+
+      > .playlist-name {
+        font-size: 4.2rem;
+        font-weight: 300;
+        line-height: 40px;
+        margin-bottom: 5px;
+      }
+
+      > .playlist-by {
+        display: flex;
+        align-items: center;
+        color: inherit;
+        font-size: 1.54rem;
+        margin-bottom: 20px;
+
+        &:hover > .name {
+          text-decoration: underline;
+        }
+
+        > img {
+          width: 20px;
+          height: 20px;
+          object-fit: cover;
+          margin-right: 5px;
+        }
+      }
+
+      > .duration-info {
+        font-size: 1.5rem;
+        color: #9999a6;
+        margin-top: 20px;
+      }
+    }
+
+    @media only screen and (max-width: $tablet) {
+      flex-direction: column;
+      align-items: center;
+
+      > .meta {
+        margin: 10px 0 0;
+
+        > .playlist-name {
+          font-size: 2.5rem;
+          line-height: initial;
+        }
+      }
+    }
+  }
+
+  .main-buttons {
+    position: relative;
+    margin-bottom: 30px;
+
+    @media only screen and (max-width: $tablet) {
+      text-align: center;
+    }
+
+    > button {
+      padding: 7px 0;
+      border: 2px solid transparent;
+      border-radius: 25px;
+      color: $wp-text-color-100;
+      text-transform: uppercase;
+      min-width: 110px;
+
+      &.play-button {
+        background-color: $site-accent-color;
+        border-color: $site-accent-color;
+        margin-right: 10px;
+
+        > svg-icon {
+          width: 16px;
+          height: 16px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        &:hover {
+          background-color: lighten($site-accent-color, 3%);
+        }
+      }
+
+      &.more-button {
+        background-color: $wp-bg-color-400;
+        border: 1px solid $wp-border-color-100;
+
+        &:hover {
+          background-color: $wp-bg-color-300;
+        }
+      }
+    }
+  }
+}

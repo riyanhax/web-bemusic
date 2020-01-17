@@ -1,0 +1,105 @@
+@import "../../../../scss/variables";
+@import "../../../../scss/admin-artist-edit-main-info";
+@import "../../../../scss/admin-artist-edit-inputs";
+
+.new-videoad-modal-container {
+  width: 650px;
+}
+
+new-videoad-modal {
+  .admin-artist-edit-inputs > .input-container {
+    > label {
+      width: 150px;
+      flex: 0 0 150px;
+    }
+
+    > p, > .error {
+      margin-left: 160px;
+      margin-bottom: 0;
+    }
+
+    &.with-border{
+      >input{
+        border-left: 1px solid #E0E0E0;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+    }
+  }
+
+  .upload-button {
+    margin-right: auto;
+  }
+
+  .mat-chip.roles-to-videoad-list{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    background-color: transparent;
+  }
+  .mat-chip.roles-to-videoad-list .roles-to-videoad-name,
+  .mat-chip.roles-to-videoad-list .roles-to-videoad-role{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    flex: 0 0 100%;
+  }
+  .roles-to-videoad-role .mat-chip-list{
+    margin: 10px 0 0 0!important;
+  }
+}
+
+.mat-option.admin-row-fetch {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 5px 0;
+  padding: 0 5px;
+  height: auto;
+
+  >.mat-option-text{
+      display: flex;
+      width: 100%;
+      line-height: 1.4;
+  
+      >.track-info {
+        flex: 1 1 auto;
+        min-width: 0;
+        pointer-events: none;
+  
+        >.track-single-img {
+          float: left;
+          margin-right: 10px;
+  
+          >img{
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+          }
+        }
+  
+        > .track-name {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;            
+        }
+  
+        > .artist-name {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 1.3rem;
+          color: rgba(0, 0, 0, 0.54);
+        }
+      }
+  
+      .options-button {
+        display: block;
+        flex: 0 0 24px;
+        width: 24px;
+        margin-left: 10px;
+      }
+  }
+  
+}

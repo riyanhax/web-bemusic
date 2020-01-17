@@ -1,0 +1,38 @@
+<a *ngIf="!inModal" [routerLink]="urls.playlist(playlist)">
+    <img [src]="getImage(playlist)">
+    <div class="name">
+        <div>{{playlist.name}}</div>
+        <div class="tracks-count" *ngIf="!showSongCount">
+            <span class="follovers">
+                <img [src]="imgFol" alt="Followers">
+                <!-- {{getCreator()['followers_count']}} -->
+                {{getFolowers()}}
+            </span>            
+            <a [routerLink]="urls.user(getCreator())" class="hover-underline">{{getCreator()['display_name']}}</a>
+        </div>
+
+        <div class="tracks-count" *ngIf="showSongCount">{{playlist['tracks_count']}} <span trans>Songs</span></div>
+    </div>
+</a>
+
+<a *ngIf="inModal" (click)="openHomePlaylistModal(playlist)">
+    <img [src]="getImage(playlist)">
+    <div class="name">
+        <div>{{playlist.name}}</div>
+        
+        <div class="tracks-count" *ngIf="!showSongCount">
+            <span class="follovers">
+                <img [src]="imgFol" alt="Followers">
+                <!-- {{getCreator()['followers_count']}} -->
+                {{getFolowers()}}
+            </span>            
+            <a [routerLink]="urls.user(getCreator())" class="hover-underline">{{getCreator()['display_name']}}</a>
+        </div>
+
+        <div class="tracks-count" *ngIf="showSongCount">{{playlist['tracks_count']}} <span trans>Songs</span></div>
+    </div>
+
+    <button class="no-style options-button">
+        <svg-icon name="more-horiz"></svg-icon>
+    </button>
+</a>

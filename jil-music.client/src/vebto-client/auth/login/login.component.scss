@@ -1,0 +1,53 @@
+@import "../../scss/variables";
+
+login {
+  display: block;
+  height: 100%;
+
+  .auth-page {
+    .remember-and-login-row {
+      display: flex;
+
+      > .remember-me-checkbox {
+        flex: 1 1 auto;
+        padding-top: 8px;
+      }
+
+      > .login-button {
+        flex: 1 1 auto;
+        text-align: right;
+      }
+    }
+
+    .info-row {
+      margin: 35px 0;
+      text-align: center;
+
+      > span {
+        margin-right: 5px;
+      }
+    }
+
+    .social-icons {
+      text-align: center;
+    }
+
+    .mat-slide-toggle.type-checkbox .mat-slide-toggle-label {
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+      align-items: center;   
+      width: 250px;
+      flex: 0 0 250px;
+    }
+
+    .country_code{      
+      width: 20%;
+    }
+    .phone_number{      
+      width: 80%;
+    }
+
+  }
+}
+

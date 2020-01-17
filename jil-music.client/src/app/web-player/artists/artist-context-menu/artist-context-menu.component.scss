@@ -1,0 +1,9 @@
+@import "../../../../scss/variables";
+
+.only-mobile{
+    display: none;
+
+    @media only screen and (max-width: $tablet) {
+        display: block;
+    }
+}

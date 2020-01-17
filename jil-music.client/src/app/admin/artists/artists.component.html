@@ -1,0 +1,77 @@
+<data-table [dataSource]="dataSource" itemsName="artists" matSort>
+    <a mat-raised-button color="accent" routerLink="new" [disabled]="loading" *ngIf="currentUser.hasPermission('artists.create')" headerActions trans>Add</a>
+
+    <div class="input-container media-autocomplete-input-container input-container-fetch" headerActions>                
+        <input
+                type="text"
+                id="fetch-artist"
+                [formControl]="fetchInput.formControl"
+                [matAutocomplete]="fethAutoArtist"
+                placeholder="Fetch Specific Artist ..."
+                trans-placeholder
+        >
+        <mat-autocomplete #fethAutoArtist="matAutocomplete" class="media-autocomplete-panel" [displayWith]="fetchDisplayFn" (optionSelected)="attachFetch($event)">
+            <mat-option *ngFor="let fetches of fetchInput.searchResults | async" [value]="fetches" class="mobile-track-list-row-fetch track-list-item">
+                <div class="track-info">
+                        <div class="track-single-img">
+                            <img [src]="fetches.image_small">
+                        </div>    
+                        <div class="track-name">{{ fetches.name }}</div>
+                        <div class="artist-name">                            
+                            <div class="album-name"> {{ fetches.genres }}</div>
+                        </div>
+                </div>
+                <!-- <button class="no-style options-button">
+                    <svg-icon name="more-vert"></svg-icon>
+                </button>                 -->
+            </mat-option>
+        </mat-autocomplete>        
+    </div>
+    <button mat-raised-button color="accent" (click)="fethArtist()" [disabled]="loading || emptyFetch" *ngIf="currentUser.hasPermission('artists.delete')" headerActions trans>
+        Fetch
+    </button>
+
+    <button mat-icon-button matTooltip="Delete selected" (click)="maybeDeleteSelectedArtists()" headerSelectedActions *ngIf="currentUser.hasPermission('artists.delete')">
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef trans>Image</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> <img [src]="artist.image_small"> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> {{artist.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="popularity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="spotify_popularity" trans>Popularity</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> {{artist.spotify_popularity}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="number_of_albums">
+        <mat-header-cell *matHeaderCellDef trans>Number of Albums</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> {{artist['albums_count']}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="views">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Page Views</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> {{artist.views}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Created At</mat-header-cell>
+        <!-- <mat-cell *matCellDef="let artist"> {{artist.created_at | formattedDate}} </mat-cell> -->
+        <mat-cell *matCellDef="let artist"> {{artist.created_at}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let artist">
+            <a mat-icon-button [routerLink]="[artist.id, 'edit']" *ngIf="currentUser.hasPermission('artists.update')" matTooltip="Edit artist">
+                <svg-icon name="edit"></svg-icon>
+            </a>
+        </mat-cell>
+    </ng-container>
+</data-table>

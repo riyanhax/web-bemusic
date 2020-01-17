@@ -1,0 +1,18 @@
+<div class="img-container">
+    <img [src]="wpImages.getDefault('album')" [lazyLoad]="wpImages.getPlaylistImage(playlist)" [scrollTarget]="scrollContainer" class="lazy-loaded">
+    <playback-control-button (play)="play()" (pause)="pause()" [playing]="playing()"></playback-control-button>
+</div>
+<div class="footer">
+    <a class="playlist-name primary-text" *ngIf="!inModal" [routerLink]="urls.playlist(playlist)">{{playlist.name}}</a>
+    <a class="playlist-name primary-text" *ngIf="inModal" (click)="openHomePlaylistModal(playlist)">{{playlist.name}}</a>
+
+    <div *ngIf="!showSongCount" class="creator-name secondary-text">
+        <span trans>By</span>&nbsp;
+        <a [routerLink]="urls.user(getCreator())" class="hover-underline">{{getCreator()['display_name']}}</a>
+    </div>
+
+    <div *ngIf="showSongCount" class="creator-name secondary-text">
+        {{playlist['tracks_count']}} <span trans>Songs</span>        
+    </div>
+
+</div>

@@ -1,0 +1,85 @@
+<data-table [dataSource]="dataSource" itemsName="users" matSort>
+    <button mat-raised-button color="accent" (click)="showCrupdateUserModal()" *ngIf="currentUser.hasPermission('users.create')" headerActions trans>Add</button>
+    <select (change)="filter($event.target.value)" class="filter_subscription"  headerActions trans>
+        <option value="all">All</option>
+        <option value="active">Active Subscription</option>
+        <option value="without">Without Subscription</option>
+        <option value="expired">Subscription Expired</option>
+    </select>
+    <button mat-icon-button matTooltip="Delete selected" (click)="maybeDeleteSelectedUsers()" headerSelectedActions *ngIf="currentUser.hasPermission('users.delete')">
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="avatar">
+        <mat-header-cell *matHeaderCellDef trans>Avatar</mat-header-cell>
+        <mat-cell *matCellDef="let user"> <img [src]="user.avatar"> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Email</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="subscribed" *ngIf="settings.get('billing.enable')">
+        <mat-header-cell *matHeaderCellDef trans>Subscribed</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.is_subscribed ? 'Yes' : 'No'}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef trans>Phone</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.phone}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="company">
+        <mat-header-cell *matHeaderCellDef trans>Company</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.company}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="groups">
+        <mat-header-cell *matHeaderCellDef trans>Groups</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{makeGroupsList(user.groups)}} </mat-cell>
+    </ng-container>
+        
+    <!--<ng-container matColumnDef="permissions">
+        <mat-header-cell *matHeaderCellDef trans>Permissions</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{makePermissionsList(user.permissions)}} </mat-cell>
+    </ng-container>-->
+
+    <ng-container matColumnDef="first_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>First Name</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.first_name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="last_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Last Name</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.last_name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="balance">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Balance</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.balance}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="session_id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Device ID</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.session_id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let user">
+            <button mat-icon-button (click)="showCrupdateUserModal(user)" *ngIf="currentUser.hasPermission('users.update')" matTooltip="Edit user">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="subscriptions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let user">
+            <button mat-icon-button (click)="showUserSubscriptionsModal(user)" *ngIf="currentUser.hasPermission('users.update')" matTooltip="Show Subscriptions">
+                <svg-icon name="subscriptions"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

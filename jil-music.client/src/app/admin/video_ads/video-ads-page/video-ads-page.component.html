@@ -1,0 +1,59 @@
+<data-table [dataSource]="dataSource" itemsName="videoads" matSort>
+    <button mat-raised-button color="accent" (click)="openCrupdateVideoadModal()" *ngIf="currentUser.hasPermission('tracks.create')" headerActions trans>Add</button>
+
+    <button mat-raised-button color="accent" (click)="maybeActivateSelectedAds()" *ngIf="currentUser.hasPermission('tracks.create')" headerSelectedActions trans>
+        Acivate
+    </button>
+    
+    <button mat-raised-button color="warn" (click)="maybeDisableSelectedAds()" *ngIf="currentUser.hasPermission('tracks.create')" headerSelectedActions trans>
+        Disable
+    </button>
+
+    <button mat-icon-button (click)="maybeDeleteSelectedVideoads()" *ngIf="currentUser.hasPermission('tracks.delete')" headerSelectedActions trans>
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Type</mat-header-cell>
+        <mat-cell *matCellDef="let videoad"> {{videoad.type}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let videoad"> {{videoad.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="duration">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Duration</mat-header-cell>
+        <mat-cell *matCellDef="let videoad"> {{formatDuration(videoad.duration)}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="link">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Link</mat-header-cell>
+        <mat-cell *matCellDef="let videoad"> {{videoad.link}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="link_text">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Link Text</mat-header-cell>
+        <mat-cell *matCellDef="let videoad"> {{videoad.link_text}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="text">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Text</mat-header-cell>
+        <mat-cell *matCellDef="let videoad"> {{videoad.text}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Status</mat-header-cell>
+        <mat-cell *matCellDef="let videoad"> {{videoad.status}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let videoad">
+            <button mat-icon-button (click)="openCrupdateVideoadModal(videoad)" *ngIf="currentUser.hasPermission('videoads.update')" matTooltip="Edit videoad">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

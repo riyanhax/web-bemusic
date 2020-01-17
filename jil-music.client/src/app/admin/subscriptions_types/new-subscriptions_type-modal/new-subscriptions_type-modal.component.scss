@@ -1,0 +1,42 @@
+@import "../../../../scss/variables";
+@import "../../../../scss/admin-artist-edit-main-info";
+@import "../../../../scss/admin-artist-edit-inputs";
+
+.new-videoad-modal-container {
+  width: 650px;
+}
+
+new-videoad-modal {
+  .admin-artist-edit-inputs > .input-container {
+    > label {
+      width: 150px;
+      flex: 0 0 150px;
+    }
+
+    > p, > .error {
+      margin-left: 160px;
+    }
+  }
+
+  .upload-button {
+    margin-right: auto;
+  }
+
+  .mat-chip.roles-to-videoad-list{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    background-color: transparent;
+  }
+  .mat-chip.roles-to-videoad-list .roles-to-videoad-name,
+  .mat-chip.roles-to-videoad-list .roles-to-videoad-role{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    flex: 0 0 100%;
+  }
+  .roles-to-videoad-role .mat-chip-list{
+    margin: 10px 0 0 0!important;
+  }
+}

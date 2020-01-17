@@ -1,0 +1,45 @@
+@import "../../../../scss/variables";
+
+playlist-item-as-slider{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+    .carousel.genres{
+      padding: 10px;
+  
+      .slide.genre{
+        position: relative;
+        padding: 10px;
+  
+        .a{
+          padding: 10px;
+        }
+  
+        &:hover img {
+          filter: brightness(0.4);
+        }
+  
+        .ng-lazyloaded {
+          filter: brightness(0.3);
+        }
+  
+        > .name {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          text-transform: capitalize;
+          font-size: 1.5rem;
+          text-align: center;
+          color: $wp-text-color-100;        
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
+        }
+      }
+    }
+}

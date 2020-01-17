@@ -1,0 +1,112 @@
+<div class="scroll-container" customScrollbar (scroll)="onScroll($event)" #scrollContainer infinite-scroll (onInfiniteScroll)="playlist.loadMore()" [infiniteScrollEnabled]="playlist.canLoadMore()">
+    
+    <div *ngIf="!state.isMobile" class="header" [contextMenu]="{item: playlist.get(), type: 'playlist', extra: {image: playlist.getImage()}}">
+        <img [src]="playlist.getImage()">
+        <div class="meta">
+            <div class="playlist-name">{{playlist.get().name}}</div>
+            <a class="playlist-by" [routerLink]="urls.user(playlist.getCreator())">
+                <img [src]="playlist.getCreator().avatar">
+                <span class="name">{{playlist.getCreator()['display_name']}}</span>
+            </a>
+            <div class="description">{{playlist.get().description}}</div>
+
+            <div class="duration-info">
+                {{playlist.tracksCount}} <span trans>Songs</span>, {{totalDuration}}
+            </div>
+        </div>
+    </div>
+
+
+    <div  *ngIf="!state.isMobile" class="main-buttons">
+        <button class="no-style play-button" *ngIf="!playlist.playing()" (click)="playlist.play()">
+            <svg-icon name="play-arrow"></svg-icon>
+            <span trans>Play</span>
+        </button>
+        <button class="no-style play-button" *ngIf="playlist.playing()" (click)="playlist.pause()">
+            <svg-icon name="pause"></svg-icon>
+            <span trans>Pause</span>
+        </button>
+        <button class="no-style more-button" (click)="openContextMenu($event)" trans>More...</button>
+    </div>
+
+    <header *ngIf="state.isMobile" class="header playlist-header" [style.background-image]="'url(' + playlist.getImage() + ')'">
+            <div class="fixed-header">
+                    <button class="no-style back-button-mobile" (click)="goBack()">
+                        <svg-icon name="arrow-back" class="icon-more-horiz"></svg-icon>
+                    </button>
+                          
+                    <h1 class="artist-name">{{playlist.get().name}}</h1>
+                            
+                    <button class="no-style more-button-mobile" (click)="openContextMenu($event)">
+                        <svg-icon name="more-horiz" class="icon-more-horiz"></svg-icon>
+                    </button>    
+                </div>
+
+            <div class="wrapper-img-small" #scrollImgSmall>
+                <div class="wrapper-r">
+                    <img [src]="playlist.getImage()" class="img-small">                    
+                </div>
+            </div>
+            <button class="no-style back-button-mobile" (click)="goBack()">
+                <svg-icon name="arrow-back" class="icon-more-horiz"></svg-icon>
+            </button>
+            <button class="no-style more-button-mobile" (click)="openContextMenu($event)">
+                <svg-icon name="more-horiz" class="icon-more-horiz"></svg-icon>
+            </button>
+    
+            <div class="meta">
+                <div class="album-name">{{playlist.get().name}}</div>                
+                <div class="tracks-number meta-item">                    
+                        <span class="value">{{playlist.tracksCount}} </span> 
+                        <span class="value" trans>tracks</span> 
+                        <span class="value" trans> - </span> 
+                        <span class="value" trans>{{totalDuration}}</span> 
+                </div>
+
+                <div class="tracks-number meta-item">                    
+                    <span class="value">{{playlist.get().description}}</span> 
+                </div>
+    
+                <a class="artist-name" [routerLink]="urls.user(playlist.getCreator())">
+                    <img [src]="playlist.getCreator().avatar">
+                    <span>{{playlist.getCreator()['display_name']}}</span>
+                </a>
+    
+                <div class="main-buttons">
+                        <button class="no-style play-button" *ngIf="!playlist.playing()" (click)="playlist.play()">
+                            <svg-icon name="play-arrow"></svg-icon>
+                            <span trans>Play playlist tracks</span>
+                        </button>
+                        <button class="no-style play-button" *ngIf="playlist.playing()" (click)="playlist.pause()">
+                            <svg-icon name="pause"></svg-icon>
+                            <span trans>Pause playlist tracks</span>
+                        </button>                    
+                    </div>
+            </div>
+
+            <div *ngIf="state.isMobile" class="main-buttons main-buttons-mobile">
+                    <button class="no-style play-button" *ngIf="!playlist.playing()" (click)="playlist.play()">
+                        <svg-icon name="play-arrow"></svg-icon>
+                        <span trans>Play playlist tracks</span>
+                    </button>
+                    <button class="no-style play-button" *ngIf="playlist.playing()" (click)="playlist.pause()">
+                        <svg-icon name="pause"></svg-icon>
+                        <span trans>Pause playlist tracks</span>
+                    </button>                    
+                </div>
+            
+        </header>
+
+    <ad-host slot="ad_slot_1" class="margin-bottom"></ad-host>
+
+    <track-list
+            [needImg]="true"
+            [tracks]="playlist.getTracks()"
+            [contextMenuParams]="{type: 'playlistTrack', extra: {playlistId: playlist.get().id}}"
+            [showArtist]="true"
+            [showAlbum]="true"
+            reorderPlaylistTracks
+            [playlist]="playlist"
+            (delete)="removeTracksFromPlaylist($event)"
+    ></track-list>
+</div>

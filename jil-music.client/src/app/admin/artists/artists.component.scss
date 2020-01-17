@@ -1,0 +1,71 @@
+
+@import "../../../scss/variables";
+
+artists {
+  .input-container-fetch{
+    display: inline;
+
+    >input{
+        height: 36px;
+        margin-left: 20px;
+        margin-right: 5px;
+        width: auto;
+    }
+    
+  }
+
+}
+
+.mat-option.mobile-track-list-row-fetch {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 5px 0;
+    padding: 0 5px;
+    height: auto;
+
+    >.mat-option-text{
+        display: flex;
+        width: 100%;
+        line-height: 1.4;
+    
+        >.track-info {
+          flex: 1 1 auto;
+          min-width: 0;
+          pointer-events: none;
+    
+          >.track-single-img {
+            float: left;
+            margin-right: 10px;
+    
+            >img{
+              border-radius: 50%;
+              width: 40px;
+              height: 40px;
+            }
+          }
+    
+          > .track-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;            
+          }
+    
+          > .artist-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1.3rem;
+            color: rgba(0, 0, 0, 0.54);
+          }
+        }
+    
+        .options-button {
+          display: block;
+          flex: 0 0 24px;
+          width: 24px;
+          margin-left: 10px;
+        }
+    }
+    
+  }

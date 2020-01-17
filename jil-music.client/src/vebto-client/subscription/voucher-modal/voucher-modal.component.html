@@ -1,0 +1,21 @@
+<div class="scroll-container" customScrollbar>
+    <form class="panel preferences-panel" (ngSubmit)="sendVoucherCode()">
+        <div class="panel-header" trans>
+            <button class="no-style back-button-mobile" (click)="close()">
+                <svg-icon name="arrow-back" class="icon-more-horiz"></svg-icon>
+            </button>
+            <h2 trans>Activate voucher</h2>
+        </div>
+        <div class="panel-body">
+
+            <div class="input-container input-inline">                
+                <input type="text" id="voucher" name="voucher" [(ngModel)]="voucher" placeholder="Voucher KEY">
+                <div class="error voucher-error" *ngIf="errors.subsribe.voucher">{{errors.subsribe.voucher}}</div>
+            </div>
+
+        </div>
+        <div class="panel-footer">
+            <button type="submit" mat-raised-button color="accent" class="button primary submit-button" trans>Activate</button>
+        </div>
+    </form>
+</div>

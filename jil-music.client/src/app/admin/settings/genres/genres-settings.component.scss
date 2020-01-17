@@ -1,0 +1,32 @@
+genres-settings {
+  display: block;
+
+  .mat-chip-list-wrapper {
+    margin: 8px -4px;
+    max-width: 600px;
+
+    .genre-image{
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .genre_edit{
+      opacity: 0.4;
+      margin-left: 7px;
+      margin-right: 0;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.87);
+      padding-left: 2px;
+
+      >svg{
+        width: 12px;
+      }
+    }
+  }
+}

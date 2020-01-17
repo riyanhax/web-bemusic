@@ -1,0 +1,117 @@
+<data-table [dataSource]="dataSource" itemsName="albums" matSort>
+    <button mat-raised-button color="accent" (click)="openCrupdateAlbumModal()" [disabled]="loading" *ngIf="currentUser.hasPermission('albums.create')" headerActions trans>Add</button>
+
+    <button mat-raised-button color="accent" (click)="maybeValidateSelectedAlbums()" [disabled]="loading" *ngIf="currentUser.hasPermission('albums.delete')" headerSelectedActions trans>
+        Validate
+    </button>
+    
+    <button mat-raised-button color="warn" (click)="maybeRejectSelectedAlbums()" [disabled]="loading" *ngIf="currentUser.hasPermission('albums.delete')" headerSelectedActions trans>
+        Reject
+    </button>
+
+    <button mat-raised-button color="accent" (click)="fethNewReleases()" [disabled]="loading" *ngIf="currentUser.hasPermission('albums.delete')" headerActions trans>
+        Fetch New Releases
+    </button>
+
+    <div class="input-container media-autocomplete-input-container input-container-fetch" headerActions>                
+        <input
+                type="text"
+                id="fetch-album"
+                [formControl]="fetchInput.formControl"
+                [matAutocomplete]="fethAuto"
+                placeholder="Fetch Specific Album ..."
+                trans-placeholder
+        >
+        <mat-autocomplete #fethAuto="matAutocomplete" class="media-autocomplete-panel" [displayWith]="fetchDisplayFn" (optionSelected)="attachFetch($event)">
+            <mat-option *ngFor="let fetches of fetchInput.searchResults | async" [value]="fetches" class="mobile-track-list-row-fetch track-list-item">
+                <div class="track-info">
+                        <div class="track-single-img">
+                            <img [src]="fetches.image">
+                        </div>    
+                        <div class="track-name">{{ fetches.name }}</div>
+                        <div class="artist-name">                            
+                            <div class="album-name"> {{ fetches.artist.name }}</div>
+                        </div>
+                </div>
+                <!-- <button class="no-style options-button">
+                    <svg-icon name="more-vert"></svg-icon>
+                </button>                 -->
+            </mat-option>
+        </mat-autocomplete>        
+    </div>
+    <button mat-raised-button color="accent" (click)="fethAlbum()" [disabled]="loading || emptyFetch" *ngIf="currentUser.hasPermission('albums.delete')" headerActions trans>
+        Fetch
+    </button>
+    
+    <button mat-icon-button (click)="maybeDeleteSelectedAlbums()" [disabled]="loading" *ngIf="currentUser.hasPermission('albums.delete')" headerSelectedActions trans>
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef trans>Image</mat-header-cell>
+        <mat-cell *matCellDef="let album">
+                <div class="wrapper-r">
+                        <img [src]="getAlbumImage(album)">
+                        <div class="ribbon-wrapper-green-small-adm" *ngIf="album.is_premium"><div class="ribbon-green-small-adm"></div></div>
+                    </div>    
+            <!-- <img [src]="getAlbumImage(album)"> -->
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="artist">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="artist_id" trans>Artist</mat-header-cell>
+        <mat-cell *matCellDef="let album">
+            <a *ngIf="album.artist" target="_blank" [routerLink]="urls.artist(album.artist)">{{album.artist.name}}</a>
+            <span *ngIf="!album.artist">-</span>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="release_date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Release Date</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.release_date ? album.release_date: '&ndash;'}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="label_label">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Label</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.label_label ? album.label_label: '&ndash;'}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="UPC">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>UPC</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.UPC ? album.UPC: '&ndash;'}} </mat-cell>
+    </ng-container>
+
+    <!--<ng-container matColumnDef="popularity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Popularity</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.spotify_popularity}} </mat-cell>
+    </ng-container>-->
+
+    <ng-container matColumnDef="number_of_tracks">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Tracks</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.tracks ? album.tracks.length: '&ndash;'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="views">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Views</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.views ? album.views : '&ndash;'}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="set_state">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>State</mat-header-cell>
+        <mat-cell *matCellDef="let album" class="set_state-{{album.set_state}}"> {{album.set_state}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let album">
+            <button mat-icon-button (click)="openCrupdateAlbumModal(album)" *ngIf="currentUser.hasPermission('albums.update')" matTooltip="Edit album">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

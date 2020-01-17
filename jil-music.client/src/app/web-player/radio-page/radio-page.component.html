@@ -1,0 +1,73 @@
+<div class="scroll-container" customScrollbar (scroll)="onScroll($event)" #scrollContainer>
+    <div class="header"  *ngIf="!isMobile">
+        <img [src]="getImage()">
+        <div class="meta">
+            <div class="radio-name">{{seed.name}}</div>
+            <div class="radio-type">{{type}} <span trans>Radio</span></div>
+
+            <div class="main-buttons">
+                <button class="no-style play-button" *ngIf="!playing()" (click)="play()">
+                    <svg-icon name="play-arrow"></svg-icon>
+                    <span trans>Play</span>
+                </button>
+                <button class="no-style play-button" *ngIf="playing()" (click)="pause()">
+                    <svg-icon name="pause"></svg-icon>
+                    <span trans>Pause</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <header *ngIf="isMobile" class="header album-header" [style.background-image]="'url(' + getImage() + ')'">
+            <div class="fixed-header">
+                    <button class="no-style back-button-mobile" (click)="goBack()">
+                        <svg-icon name="arrow-back" class="icon-more-horiz"></svg-icon>
+                    </button>
+                          
+                    <h1 class="artist-name">{{seed.name}}</h1>
+                    
+                    <button class="no-style more-button-mobile">
+                            <svg-icon name="more-horiz" class="icon-more-horiz"></svg-icon>
+                        </button>   
+                </div>
+
+            <div class="wrapper-img-small" #scrollImgSmall>
+                <div class="wrapper-r">
+                    <img [src]="getImage()" class="img-small">                    
+                </div>
+            </div>
+            <button class="no-style back-button-mobile" (click)="goBack()">
+                <svg-icon name="arrow-back" class="icon-more-horiz"></svg-icon>
+            </button>
+    
+            <div class="meta">
+                <div class="album-name">{{seed.name}}</div>                
+                <div class="tracks-number meta-item">  
+                    <span class="value">{{type}}</span>&nbsp;<span class="value" trans>Radio</span>                  
+                </div>
+                
+                <div class="main-buttons">
+                    <button class="no-style play-button" *ngIf="!playing()" (click)="play()">
+                        <svg-icon name="play-arrow"></svg-icon>
+                        <span trans>Play {{type}} tracks</span>
+                    </button>
+                    <button class="no-style play-button" *ngIf="playing()" (click)="pause()" trans>
+                        <svg-icon name="pause"></svg-icon>
+                        <span trans>Pause {{type}} tracks</span>
+                    </button>                    
+                </div>
+            </div>
+            <div class="main-buttons main-buttons-mobile">
+                    <button class="no-style play-button" *ngIf="!playing()" (click)="play()">
+                        <svg-icon name="play-arrow"></svg-icon>
+                        <span trans>Play {{type}} tracks</span>
+                    </button>
+                    <button class="no-style play-button" *ngIf="playing()" (click)="pause()" trans>
+                        <svg-icon name="pause"></svg-icon>
+                        <span trans>Pause {{type}} tracks</span>
+                    </button>                    
+                </div>
+        </header>
+
+    <track-list [tracks]="tracks" [showArtist]="true"></track-list>
+</div>

@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title trans>User Subscriptions and Vouchers activations</h2>
+    <button type="button" (click)="close()" class="close-button no-style icon-button"><svg-icon name="close"></svg-icon></button>
+</div>
+
+<!--<table>
+    <tr>
+        <td>
+            Date
+        </td>    
+        <td>
+            Action
+        </td>
+        <td>
+            Amount
+        </td>
+        <td>
+            Validity
+        </td>
+    </tr>   
+    <tr *ngFor="let userSubscription of userSubscriptions">
+        <td>{{ userSubscription.created_at.date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{ userSubscription.action }}</td>
+        <td>{{ userSubscription.amount }}</td>
+        <td>{{ userSubscription.validity }}</td>
+    </tr>
+  </table>-->
+<data-table [dataSource]="dataSource" itemsName="userSubscriptions" matSort>
+
+<ng-container matColumnDef="date">
+  <mat-header-cell *matHeaderCellDef trans>Date</mat-header-cell>
+  <mat-cell [class.deposit]="userSubscription.action == 'Voucher Activation'" *matCellDef="let userSubscription"> {{userSubscription.created_at.date | date:'yyyy-MM-dd HH:mm:ss'}}</mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="action">
+  <mat-header-cell *matHeaderCellDef mat-sort-header trans>Action</mat-header-cell>
+  <mat-cell [class.deposit]="userSubscription.action == 'Voucher Activation'" *matCellDef="let userSubscription"> {{userSubscription.action}} </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="amount">
+  <mat-header-cell *matHeaderCellDef trans>Amount</mat-header-cell>
+  <mat-cell [class.deposit]="userSubscription.action == 'Voucher Activation'" *matCellDef="let userSubscription"> {{userSubscription.amount}} </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="validity">
+  <mat-header-cell *matHeaderCellDef trans>Validity</mat-header-cell>
+  <mat-cell [class.deposit]="userSubscription.action == 'Voucher Activation'" *matCellDef="let userSubscription"> {{userSubscription.validity}} </mat-cell>
+</ng-container>
+
+</data-table>

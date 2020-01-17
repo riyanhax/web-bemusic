@@ -1,0 +1,6 @@
+{
+  "/secure": {
+    "target": "http://jil-music.localdomain/",
+    "secure": false
+  }
+}

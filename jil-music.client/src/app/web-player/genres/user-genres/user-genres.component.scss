@@ -1,0 +1,401 @@
+@import "../../../../scss/variables";
+
+user-genres {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  @media only screen and (min-width: $tablet) {
+    width: calc(100% - 250px);
+  }  
+  
+  mat-list{
+    margin-left: 20px;
+    margin-right: 20px;
+  }  
+  .mat-list-item-content{
+    justify-content: center;
+    color: $wp-text-color-300;
+  }
+  .mat-divider{    
+    border-top-color: $wp-border-color-200;
+  }
+
+  .genres {
+    > .genre {
+      position: relative;
+
+      &:hover img {
+        filter: brightness(0.4);
+      }
+
+      .ng-lazyloaded {
+        filter: brightness(0.3);
+      }
+
+      > .name {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-transform: capitalize;
+        font-size: 2rem;
+        color: $wp-text-color-100;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+    }    
+  }
+
+  .carousel.genres{
+    padding: 10px;
+
+    .slide.genre{
+      position: relative;
+      padding: 10px;
+
+      .a{
+        padding: 10px;
+      }
+
+      &:hover img {
+        filter: brightness(0.4);
+      }
+
+      .ng-lazyloaded {
+        filter: brightness(0.3);
+      }
+
+      > .name {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-transform: capitalize;
+        font-size: 1.5rem;
+        text-align: center;
+        color: $wp-text-color-100;        
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+    }
+  }
+
+  .slide.artists,
+  .slide.albums{
+    margin: 0 10px;
+  }
+  .slide.artists{
+    .img-container{
+      position: relative;
+      padding-top: 100%;
+
+      >img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+    }
+  } 
+
+  .genreGroupGrid{
+    padding-bottom: 0;
+  
+    .genreGroupFilter{
+      padding: 0 10px;      
+      display:  flex;
+      flex:  1;
+      align-items: baseline;      
+      box-shadow: none;
+
+      .genreGroup{
+        position: relative;
+        padding: 0 10px;
+        color: $wp-text-color-300;
+
+        .mat-button-toggle-label-content{
+          border-bottom: 2px solid transparent;
+          padding: 0 4px;
+        }
+
+        &.mat-button-toggle-checked{        
+          background-color: transparent;        
+          color: $wp-text-color-100;
+
+          .mat-button-toggle-label-content{
+            border-bottom: 2px solid $wp-text-color-300;
+          }
+        }
+      }
+    }
+  }
+
+  .trackOfferFilter{
+    >single-track-item{
+      margin-left: auto;
+      margin-right: auto;
+    }    
+  }
+
+  .trackOfferFilter-mobile{
+    align-items: baseline;
+
+    > .media-grid-item{
+      flex: 0 0 30%;
+      width: 30%;
+
+      &.isShow{
+        flex: 0 0 40%;
+        width: 40%;
+      }
+    }
+  }
+
+  .library-playlists {
+    display: block;
+    width: 100%;    
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 10px 20px;
+    overflow: auto;
+    
+    .playlist {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+  
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+  
+      > a {
+        display: flex;
+        align-items: center;
+        color: inherit;
+        flex: 1 1 auto;
+  
+        > img {
+          display: inline-block;
+          width: 45px;
+          height: 45px;
+          object-fit: cover;
+          margin-right: 8px;
+        }
+        
+        .playlist-first{
+          float: left;
+          margin-right: 10px;
+        }
+        .tracks-count {
+          font-size: 1.2rem;
+          color: $wp-text-color-300;
+        }
+      }
+  
+      > .options-button {
+        display: block;
+        flex: 0 0 24px;
+        width: 24px;
+        margin-left: 10px;
+        color: $wp-text-color-300;
+      }
+    }
+  }
+
+  .playlists-rows{
+    display: block;
+    width: 100%;
+    height: 100%;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 10px 20px;
+    // overflow: auto;
+  }
+
+
+  .carousel {
+    .content {
+      display: flex;
+      .item {
+        width: 100%;
+        display: block;
+        .img {
+          width: 100%;
+          display: block;
+          background-size: cover;
+          background-position: center;
+          height: 100%;
+          padding-bottom: 47%;
+          position: relative;
+        }
+
+        .slider-grid{
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+          height: 100%;
+          align-items: center;
+          position: absolute;
+          bottom: 0;
+          top: 0;
+          background-color: rgba(0, 0, 0, 0.8);
+          padding: 20px;
+
+          .slider-album-img{
+            width: 40%;
+            height: 100%;
+            overflow: hidden;
+
+            img{
+              width: 100%;
+            }
+          }
+          .slider-info{
+            float: right;
+            width: 50%;
+            text-align: center;
+            margin-left: auto;
+            padding-top: 20px;
+
+            .slider-album-name{
+              color: #51a1a1;              
+              display: block;
+            }
+  
+            .slider-album-artist{
+              color: #51a1a1;
+              display: block;
+            }
+  
+            .slider-album-link{
+              color: $wp-text-color-100;
+              display: block;
+              color: #ffffff;
+              background-color: #51a1a1;
+              padding: 3px;
+              display: block;
+              border-radius: 10px;
+              border: 2px solid rgba(0,0,0,1);
+              margin-top: 20px;
+              width: 100px;
+              margin-left: auto;
+              margin-right: auto;
+            }            
+          }
+        }
+      }
+    }
+    .ball {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: black;
+      border: 2px solid;
+      opacity: 0.5;
+      &.visible {
+        opacity: 1;
+      }
+    }
+    &.transition {
+      transition: all .4s ease-in-out;
+    }
+    .indicators{
+      bottom: -0.5rem!important;
+    }
+    .progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: #ff5252;
+    }
+    .click-area {
+      width: 50px;
+      text-align: center;
+      i {
+        font-size: 3em;
+      }
+    }
+  }
+  ngx-hm-carousel.carousel{
+    height: 33%;
+    padding: 15px 15px 0 15px;
+    margin-top: 20px;
+
+    &.descktop{
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    single-track-item.media-grid-item{
+      margin-left: 5px;
+      margin-right: 5px;
+
+      .img-container{
+        position: relative;
+        padding-top: 100%;
+
+      >img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+      }
+    }    
+
+  }
+  .slide.artists{
+    .footer{
+      background-color: transparent;
+      font-size: 0.8em;
+    }
+    .img-container{
+      position: relative;
+      padding-top: 100%;
+
+      >img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+    }
+    .img-container img{
+      border-radius: 50%;
+    }
+  }
+  .top-link{
+    color: $wp-text-color-100;
+    display: block;
+    color: #ffffff;
+    background-color: #51a1a1;
+    padding: 3px 25px;
+    display: block;
+    border-radius: 10px;
+    border: 2px solid rgba(0,0,0,1);    
+    margin-left: auto;
+  }
+
+  .media-grid-item > .img-container{
+    position: relative;
+      padding-top: 100%;
+
+      >img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+  }
+}

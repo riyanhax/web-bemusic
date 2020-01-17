@@ -1,0 +1,19 @@
+<div class="header">
+    <div class="title" trans>Roles Artist</div>
+    <div class="subtitle" trans>This not for artist. It local data. This is just for sales statistique.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate>
+    <div class="input-container">
+        <input type="text" enterKeybind (blur)="addRolesArtist()" [(ngModel)]="rolesArtist" name="rolesArtist" placeholder="+Artist Role" trans-placeholder>
+
+        <mat-chip-list class="roles-artists">
+            <mat-chip class="roles-artist" *ngFor="let rolesArtist of rolesArtists" [selectable]="false" (removed)="removeRolesArtist(rolesArtist)">
+                <span>{{rolesArtist}}</span>
+                <svg-icon name="cancel" matChipRemove></svg-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </div>
+
+    <button mat-raised-button color="accent" class="update-button" type="submit" [disabled]="loading" trans>Update</button>
+</form>

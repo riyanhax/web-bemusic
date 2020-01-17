@@ -1,0 +1,534 @@
+@import "../../../../scss/variables";
+
+artist {
+  display: block;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
+
+  > .scroll-container {
+    padding-bottom: 25px;
+
+    .main-buttons.main-buttons-mobile{
+      position: fixed;
+      top: 43px;
+      display: none;
+      z-index: 9999;
+      opacity: 0;
+      -webkit-transition: opacity 0.3s;
+      -moz-transition: opacity 0.3s;
+      transition: opacity 0.3s; 
+    }
+
+    &.btn-play-static{
+      .main-buttons.main-buttons-mobile{
+        display: block;
+        opacity: 1;
+      }
+    }
+
+    .fixed-header{
+      position: fixed;
+      width: 102%;        
+      display: none;;    
+      justify-content: center;
+      align-items: center;
+      top: 0px;
+      background-color: $wp-bg-color-500;
+      padding-top: 3px;
+      z-index: 99;
+      opacity: 0;
+      -webkit-transition: opacity 0.3s;
+      -moz-transition: opacity 0.3s;
+      transition: opacity 0.3s; 
+  
+      >.back-button-mobile{
+        margin-left: 20px;
+        margin-right: auto;
+      }
+      >.artist-name{
+        margin: 0 auto;
+        font-size: 1.5em;
+        height: 2em;
+        line-height: 2em;
+        padding: 0 5px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+      }
+      >.more-button-mobile{
+        margin-left: auto;
+        margin-right: 20px;
+      }
+    }
+  
+    &.header-static{
+      .fixed-header{
+        display: flex;
+        opacity: 1;
+      }    
+    }
+
+  }
+  
+  .artist-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0 20px;
+    position: relative;
+
+    @media only screen and (max-width: $tablet) {
+      padding: 50px 0 10px;
+      // background-size: 200%;  
+    }
+
+    >.more-button-mobile{
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+  
+      @media only screen and (max-width: $tablet) {
+        display: block;
+      }
+    }
+
+    >.back-button-mobile{
+      display: none;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+  
+      @media only screen and (max-width: $tablet) {
+        display: block;
+      }
+    }
+
+    .img-small{
+      display: none;
+      border-radius: 50%;
+      margin-bottom: 30px;
+      width: 150px;
+      height: 150px;        
+      filter: blur(0px);
+      position: relative;      
+      justify-content: center;
+
+      >img{        
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 0;
+      }
+
+      @media only screen and (max-width: $tablet) {  
+        display: flex;
+      }  
+    }
+
+    &:before {
+      position: absolute;
+      content: "";
+      background: linear-gradient(to bottom,transparent -80%, $wp-bg-color-500 100%);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    > .artist-name {
+      position: relative;
+      margin: 0 25px 15px;
+      font-size: 5.5rem;
+      color: $wp-text-color-100;
+
+      @media only screen and (max-width: $tablet) {
+        // font-size: 3.5rem;
+        font-size: 2.5rem;
+        margin: 0 25px 0;
+      }
+    }
+
+    h3{
+      margin: 0 25px 15px;
+      font-weight: normal;
+      color: $wp-text-color-200;
+      font-style: italic;
+    }
+    
+    > .genres {
+      font-size: 13px;
+      position: relative;
+      max-width: 430px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      > .genre {
+        padding: 0 7px;
+        color: inherit;
+        text-transform: capitalize;
+      }
+    }
+
+    > .main-buttons {
+      position: relative;
+      margin-bottom: 50px;
+
+      @media only screen and (max-width: $tablet) {
+        margin-bottom: 0;
+      }
+
+      > button {
+        padding: 10px 0;
+        border: 2px solid transparent;
+        border-radius: 25px;
+        color: $wp-text-color-100;
+        text-transform: uppercase;
+        min-width: 130px;
+
+        @media only screen and (max-width: $tablet) {
+          border-radius: 7px;
+          text-transform: none;
+          font-weight: 500;
+          padding: 6px 20px 2px;
+        }
+
+        &.play-button {
+          background-color: $site-accent-color;
+          border-color: $site-accent-color;
+          margin-right: 15px;
+
+          > svg-icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+          }
+
+          @media only screen and (max-width: $tablet) {
+            margin-right: 0;
+            > svg-icon {
+              width: 28px;
+              height: 28px;
+              margin-bottom: 4px;
+              margin-right: 5px;
+            }
+          }
+         
+          &:hover {
+            background-color: lighten($site-accent-color, 3%);
+          }
+        }
+
+        &.more-button {
+          background-color: rgba(0,0,0,0.5);
+          border-color: $wp-border-color-100;
+
+          &:hover {
+            background-color: rgba(0,0,0,0.4);
+          }
+
+          @media only screen and (max-width: $tablet) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    > .nav-links {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      font-weight: 500;
+      text-transform: uppercase;
+
+      > .nav-link {
+        padding: 5px;
+        margin: 15px;
+        border-bottom: 2px solid transparent;
+        color: inherit;
+
+        @media only screen and (max-width: $tablet) {
+          font-weight: 400;
+          text-transform: none;
+          margin-bottom: 0;
+        }
+
+        &.active {
+          color: $wp-text-color-100;
+          border-color: $site-accent-color;
+        }
+      }
+
+      @media only screen and (max-width: $tablet) {
+        // display: none;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    padding: 0 25px;
+
+    .title {
+      margin: 15px 0;
+      color: #898B8C;
+      text-transform: uppercase;
+    }
+
+    .dark-button {
+      padding: 8px 16px;
+      background-color: $wp-bg-color-400;
+      border: 1px solid $wp-border-color-200;
+      border-radius: 3px;
+
+      &:hover {
+        background-color: $wp-bg-color-300;
+      }
+    }
+
+    .popular-tracks > .dark-button{
+
+      @media only screen and (max-width: $tablet) {
+        width: 100%;
+      }
+    }
+
+    > .left-col {
+      flex: 1 1 auto;
+      min-width: 0;
+
+      > .popular-tracks {
+        > .dark-button {
+          margin-top: 20px;
+        }
+
+        > .title {
+          margin-left: 15px;
+        }
+      }
+
+      > .albums {
+        padding-top: 45px;
+
+        > .albums-section-header {
+          display: flex;
+          align-items: center;
+          margin-bottom: 25px;
+          padding-bottom: 10px;
+          border-bottom: 1px solid $wp-border-color-200;
+          font-weight: 500;
+          text-transform: uppercase;
+
+          > .actions {
+            margin-left: auto;
+
+            > .active {
+              color: $site-accent-color;
+            }
+          }
+        }
+
+        > .album {
+          margin-bottom: 40px;
+          
+          > .album-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            min-width: 0;
+
+            > img {
+              width: 110px;
+              height: 110px;
+              flex:  0 0 110px;
+              object-fit: cover;
+              margin-right: 15px;
+            }
+
+            > .wrapper-r img {
+              width: 110px;
+              height: 110px;
+              flex:  0 0 110px;
+              object-fit: cover;
+              margin-right: 15px;
+            }
+
+            > .meta {
+              flex: 1 1 auto;
+              min-width: 0;
+
+              @media only screen and (max-width: $tablet) {
+                > .album-name {
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  font-size: 1.7rem;
+                }
+              }
+            }
+
+            .release-date {
+              color: $wp-text-color-300;
+            }
+
+            .album-name {
+              display: block;
+              margin: 4px 0 23px;
+              font-size: 2.1rem;
+              color: inherit;
+            }
+
+            .dark-button {
+              display: block;
+              border-radius: 25px;
+              min-width: 110px;
+            }
+          }
+        }
+
+        > media-grid {
+          padding: 0;
+
+          >album-item{
+            .artist-name.secondary-text{
+              @media only screen and (max-width: $tablet) {
+                display: none;
+              }
+            }
+          }
+          
+        }
+      }
+
+      @media only screen and (max-width: $tablet) {
+        width: 100%;
+
+        > .popular-tracks > .title {
+          margin-left: 0;
+        }
+      }
+    }
+
+    &.bio {
+      display: block;
+
+      > .bio-images {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 25px;
+        overflow: hidden;
+
+        > img {
+          flex: 0 0 24%;
+          height: 275px;
+          width: 24%;
+          object-fit: cover;
+        }
+      }
+
+      > .bio-text {
+        padding: 15px;
+        background-color: $wp-bg-color-400;
+      }
+
+      > no-results-message {
+        margin-top: 40px;
+      };
+    }
+
+    > .right-col {
+      width: 30%;
+      flex: 0 0 30%;
+
+      > .similar-artists {
+        margin-left: 30px;
+
+        > .similar-artist {
+          display: flex;
+          align-items: center;
+          padding: 3px;
+          margin-bottom: 5px;
+          background-color: $wp-bg-color-400;
+          color: inherit;
+
+          &:hover {
+            background-color: $wp-bg-color-300;
+          }
+
+          > img {
+            width: 45px;
+            height: 45px;
+            margin-right: 15px;
+            object-fit: cover;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.wrapper-r {  
+  position: relative;
+}
+
+.ribbon-wrapper-green-small {
+  width: 50px;
+  height: 40px;
+  overflow: hidden;
+  position: absolute;
+  top: -3px;
+  right: 10px;
+}
+
+.ribbon-green-small {
+  font: bold 6px Sans-Serif;
+  color: #333;
+  text-align: center;
+  text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  position: relative;
+  padding: 5px 15px;
+  left: 10px;
+  top: 4px;
+  width: 52px;
+  background-color: #BFDC7A;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#BFDC7A), to(#8EBF45)); 
+  background-image: -webkit-linear-gradient(top, #BFDC7A, #8EBF45); 
+  background-image:    -moz-linear-gradient(top, #BFDC7A, #8EBF45); 
+  background-image:     -ms-linear-gradient(top, #BFDC7A, #8EBF45); 
+  background-image:      -o-linear-gradient(top, #BFDC7A, #8EBF45); 
+  color: #6a6340;
+  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+}
+
+.ribbon-green-small:after {
+  content: "";
+  border-top:   3px solid #6e8900;   
+  border-left:  3px solid transparent;
+  border-right: 3px solid transparent;
+  position:absolute;
+  bottom: -3px;
+}
+.ribbon-green-small:after{
+  right: 0;
+}​
+.ribbon-green-small:before{
+  left: 0;
+}

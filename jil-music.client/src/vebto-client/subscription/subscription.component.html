@@ -1,0 +1,54 @@
+<div class="scroll-container" [class.in-mobile]="isMobile">
+    <material-navbar [menuPosition]="settings.get('vebto.navbar.defaultPosition')" *ngIf="!settings.get('vebto.accountSettings.hideNavbar')"></material-navbar>
+
+    <div class="content container">
+        <h1 class="header" trans>Subscription</h1>
+
+        <button *ngIf="isSubscribe && isMobile" mat-raised-button color="accent" class="button primary btn-modal-open" (click)="openVoucherModal()" trans>Add Voucher KEY</button>
+
+        <div class="panels">
+            <div class="panel account-settings-panel">                
+                <div class="panel-header" trans>Your current subscription status</div>
+                <div class="panel-body">
+                    <div class="input-container input-inline">
+                        <label for="subscription_status" trans>Subscription Status:</label>                        
+                        <div id="subscription_status">{{subscription.status}}</div>         
+                    </div>
+
+                    <div class="input-container input-inline">
+                        <label for="validity" trans>Validity:</label>
+                        <div id="validity">{{subscription.validity}}</div>
+                    </div>
+                    
+                </div>
+
+                <div class="panel-footer">
+                    
+                </div>
+            </div>
+
+            <form class="panel preferences-panel" (ngSubmit)="sendVoucherCode()" *ngIf="isSubscribe && !isMobile">
+                <div class="panel-header" trans>Activate voucher</div>
+                <div class="panel-body">
+                    
+                    <div class="input-container input-inline">
+                        <label for="voucher" trans>Voucher KEY</label>
+                        <input type="text" id="voucher" name="voucher" [(ngModel)]="voucher">
+                        <div class="error voucher-error" *ngIf="errors.subsribe.voucher">{{errors.subsribe.voucher}}</div>
+                    </div>                    
+                    
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" mat-raised-button color="accent" class="button primary submit-button" trans>Activate</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="logout-button-container" *ngIf="isSubscribe">
+            <button mat-raised-button color="warn" class="logout-button" type="button" (click)="auth.logOut()">
+                <svg-icon name="exit-to-app"></svg-icon>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+</div>

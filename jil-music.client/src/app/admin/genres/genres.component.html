@@ -1,0 +1,49 @@
+<data-table [dataSource]="dataSource" itemsName="genres" matSort>
+    <!-- <button mat-raised-button (click)="openCrupdateGenreModal()" color="accent" *ngIf="currentUser.hasPermission('genres.create')" headerActions trans>Add</button> -->
+
+    <button mat-raised-button (click)="openCrupdateGenreModal()" color="accent" headerActions trans>Add</button>
+
+    <!-- <button mat-icon-button [matTooltip]="'Delete selected' | trans" (click)="confirmGenresDeletion()" headerSelectedActions *ngIf="currentUser.hasPermission('genres.delete')"> -->
+    <button mat-icon-button [matTooltip]="'Delete selected' " (click)="confirmGenresDeletion()" headerSelectedActions>
+        <!-- <mat-icon svgIcon="delete"></mat-icon> -->
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef trans>Image</mat-header-cell>
+        <!-- <mat-cell *matCellDef="let genre"> <img [src]="genre.image"> </mat-cell> -->
+        <mat-cell *matCellDef="let genre"> <img [src]="wpImages.getGenreImage(genre)"> </mat-cell>        
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let genre"> {{genre.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="popularity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Popularity</mat-header-cell>
+        <mat-cell *matCellDef="let genre"> {{genre.popularity}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="number-of-artists">
+        <mat-header-cell *matHeaderCellDef trans>Number of Artists</mat-header-cell>
+        <mat-cell *matCellDef="let genre"> {{genre.artists_count ? genre.artists_count : '-' }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="created_at" trans>Created At</mat-header-cell>
+        <!-- <mat-cell *matCellDef="let genre"> {{genre.created_at | formattedDate}} </mat-cell> -->
+        <mat-cell *matCellDef="let genre"> {{genre.created_at}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let genre">
+            <!-- <button mat-icon-button (click)="openCrupdateGenreModal(genre)" *ngIf="currentUser.hasPermission('genres.update')" [matTooltip]="'Edit genre' | trans"> -->
+            <button mat-icon-button (click)="openCrupdateGenreModal(genre)" [matTooltip]="'Edit genre' ">
+                <!-- <mat-icon svgIcon="edit"></mat-icon> -->
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

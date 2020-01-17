@@ -1,0 +1,3 @@
+<ngx-slick class="carousel genres" #slickModalPlaylista="slick-modal" [config]="slideConfig" *ngIf="inModal && ngxHmCarouselTrack.tracks.length > 0">
+    <single-track-item ngxSlickItem *ngFor="let track of ngxHmCarouselTrack.tracks" class="slide albums" [inModal]="true" [track]="track"></single-track-item>
+</ngx-slick>

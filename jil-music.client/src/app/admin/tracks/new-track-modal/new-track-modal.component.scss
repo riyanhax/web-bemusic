@@ -1,0 +1,42 @@
+@import "../../../../scss/variables";
+@import "../../../../scss/admin-artist-edit-main-info";
+@import "../../../../scss/admin-artist-edit-inputs";
+
+.new-track-modal-container {
+  width: 650px;
+}
+
+new-track-modal {
+  .admin-artist-edit-inputs > .input-container {
+    > label {
+      width: 150px;
+      flex: 0 0 150px;
+    }
+
+    > p, > .error {
+      margin-left: 160px;
+    }
+  }
+
+  .upload-button {
+    margin-right: auto;
+  }
+
+  .mat-chip.roles-to-track-list{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    background-color: transparent;
+  }
+  .mat-chip.roles-to-track-list .roles-to-track-name,
+  .mat-chip.roles-to-track-list .roles-to-track-role{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    flex: 0 0 100%;
+  }
+  .roles-to-track-role .mat-chip-list{
+    margin: 10px 0 0 0!important;
+  }
+}

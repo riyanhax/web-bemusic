@@ -1,0 +1,123 @@
+<div class="scroll-container" customScrollbar (scroll)="onScroll($event)" #scrollContainer>
+    <div class="header" *ngIf="!state.isMobile">
+
+        <div class="wrapper-r" *ngIf="!state.isMobile">
+            <img [src]="album.image" class="img-main">
+            <div class="ribbon-wrapper-green" *ngIf="album.is_premium">
+                <div class="ribbon-green">Premium</div>
+            </div>
+            <button class="no-style back-button-mobile" (click)="goBack()">
+                <svg-icon name="arrow-back" class="icon-more-horiz"></svg-icon>
+            </button>
+            <button class="no-style more-button-mobile" (click)="openContextMenu($event)">
+                <svg-icon name="more-horiz" class="icon-more-horiz"></svg-icon>
+            </button>
+        </div>​
+
+        <div class="meta">
+            <div class="album-name">{{album.name}}</div>
+            <a class="artist-name" *ngIf="album.artist" [routerLink]="urls.artist(album.artist)">{{album.artist.name}}</a>
+
+            <div class="release-date meta-item">
+                <span class="name" trans>Release Date:</span>
+                <span class="value">{{album.release_date}}</span>
+            </div>
+            <div class="tracks-number meta-item">
+                <span class="name" trans>Number of Songs:</span>
+                <span class="value">{{album.tracks.length}}</span>
+            </div>
+            <div class="running-time meta-item">
+                <span class="name" trans>Running Time:</span>
+                <span class="value">{{totalDuration}}</span>
+            </div>
+
+            <div class="main-buttons">
+                <button class="no-style play-button" *ngIf="!playing()" (click)="play()">
+                    <svg-icon name="play-arrow"></svg-icon>
+                    <span trans>Play</span>
+                </button>
+                <button class="no-style play-button" *ngIf="playing()" (click)="pause()" trans>
+                    <svg-icon name="pause"></svg-icon>
+                    <span trans>Pause</span>
+                </button>
+                <button class="no-style more-button" (click)="openContextMenu($event)" trans>More...</button>
+            </div>
+        </div>
+    </div>
+
+    <header *ngIf="state.isMobile" class="header album-header" [style.background-image]="'url(' + album.image + ')'">
+
+        <div *ngIf="state.isMobile" class="fixed-header">
+            <button class="no-style back-button-mobile" (click)="goBack()">
+                <svg-icon name="arrow-back" class="icon-more-horiz"></svg-icon>
+            </button>
+                  
+            <h1 class="artist-name">{{album.name}}</h1>
+                    
+            <button class="no-style more-button-mobile" (click)="openContextMenu($event)">
+                <svg-icon name="more-horiz" class="icon-more-horiz"></svg-icon>
+            </button>    
+        </div>
+
+        <div class="wrapper-img-small" #scrollImgSmall>
+            <div class="wrapper-r">
+                <img [src]="album.image" class="img-small">
+                <div class="ribbon-wrapper-green" *ngIf="album.is_premium">
+                    <div class="ribbon-green">Premium</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="no-style back-button-mobile" (click)="goBack()">
+            <svg-icon name="arrow-back" class="icon-more-horiz"></svg-icon>
+        </button>
+        <button class="no-style more-button-mobile" (click)="openContextMenu($event)">
+            <svg-icon name="more-horiz" class="icon-more-horiz"></svg-icon>
+        </button>
+
+        <div class="meta">
+            <div class="album-name">{{album.name}}</div>
+            <!-- <div class="release-date meta-item">            
+                <span class="value">{{album.release_date}}</span>
+            </div> -->
+            <div class="tracks-number meta-item">                    
+                    <span class="value">{{album.tracks.length}} </span> 
+                    <span class="value" trans>tracks</span> 
+                    <span class="value" trans> - </span> 
+                    <span class="value" trans>{{totalDuration}}</span> 
+            </div>
+
+            <a class="artist-name" *ngIf="album.artist" [routerLink]="urls.artist(album.artist)">
+                <img [src]="album.artist.image_small">
+                <span>{{album.artist.name}}</span>
+            </a>
+
+            <div class="main-buttons">
+                <button class="no-style play-button" *ngIf="!playing()" (click)="play()">
+                    <svg-icon name="play-arrow"></svg-icon>
+                    <span trans>Play album tracks</span>
+                </button>
+                <button class="no-style play-button" *ngIf="playing()" (click)="pause()" trans>
+                    <svg-icon name="pause"></svg-icon>
+                    <span trans>Pause album tracks</span>
+                </button>
+                <button class="no-style more-button" (click)="openContextMenu($event)" trans>More...</button>
+            </div>            
+        </div>
+        <div *ngIf="state.isMobile" class="main-buttons main-buttons-mobile">
+                <button class="no-style play-button" *ngIf="!playing()" (click)="play()">
+                    <svg-icon name="play-arrow"></svg-icon>
+                    <span trans>Play album tracks</span>
+                </button>
+                <button class="no-style play-button" *ngIf="playing()" (click)="pause()" trans>
+                    <svg-icon name="pause"></svg-icon>
+                    <span trans>Pause album tracks</span>
+                </button>
+                <button class="no-style more-button" (click)="openContextMenu($event)" trans>More...</button>
+            </div>
+    </header>
+
+    <ad-host slot="ad_slot_5" class="margin-bottom"></ad-host>
+
+    <track-list [tracks]="album.tracks"></track-list>
+</div>

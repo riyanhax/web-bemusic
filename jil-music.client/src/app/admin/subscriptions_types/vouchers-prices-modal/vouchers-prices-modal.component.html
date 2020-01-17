@@ -1,0 +1,8 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title trans>Available Vouchers prices on Wallet</h2>
+    <button type="button" (click)="close()" class="close-button no-style icon-button"><svg-icon name="close"></svg-icon></button>
+</div>
+
+<ul *ngFor="let vouchersPrice of voucherPrices">
+    <li>{{ vouchersPrice.price}}</li>
+</ul>

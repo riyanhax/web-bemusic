@@ -1,0 +1,114 @@
+<mat-dialog-content>
+    <div class="input-container feth-button">
+        <button mat-raised-button (click)="fethNewInfo(album.name)" color="accent" [disabled]="loading" class="main-button" *ngIf="updating" trans>Fetch New Info</button>
+    </div>
+    <button type="button" (click)="close()" class="close-button" mat-icon-button>
+        <svg-icon name="close"></svg-icon>
+    </button>
+    <form class="content" (ngSubmit)="confirm()" ngNativeValidate>
+        <div class="edit-main-info">
+            <div class="left-col">
+                <img [src]="getAlbumImage()">
+                <button type="submit" class="main-button" mat-raised-button color="accent" [disabled]="loading">
+                    <span *ngIf="updating" trans>Update</span>
+                    <span *ngIf="!updating" trans>Create</span>
+                </button>
+            </div>
+            <div class="right-col many-inputs admin-artist-edit-inputs">
+                <div class="input-container">
+                    <label for="album-name" trans>Name</label>
+                    <input type="text" [(ngModel)]="album.name" id="album-name" name="name" required>
+                    <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+                </div>
+                <div class="input-container media-autocomplete-input-container">
+                    <label for="album-artist" trans>Artist</label>
+                    <img [src]="artist.image_small" *ngIf="artist">
+                    <input
+                            type="text"
+                            id="album-artist"
+                            [formControl]="artistInput.formControl"
+                            [matAutocomplete]="artistAuto"
+                            placeholder="Search artists..."
+                            trans-placeholder
+                    >
+
+                    <mat-autocomplete #artistAuto="matAutocomplete" class="media-autocomplete-panel" [displayWith]="artistDisplayFn" (optionSelected)="attachArtist($event)">
+                        <mat-option *ngFor="let artist of artistInput.searchResults | async" [value]="artist">
+                            <img [src]="artist.image_small">
+                            <span>{{ artist.name }}</span>
+                        </mat-option>
+                    </mat-autocomplete>
+
+                    <div class="error" *ngIf="errors.artists">{{errors.artists}}</div>
+                </div>
+        
+                <div class="input-container">
+                    <label></label>
+                                        
+                    <label class="type-checkbox" for="is_live" trans>Live</label>
+                    <mat-checkbox class="type-checkbox" name="is_live" labelPosition="after" id="is_live" [(ngModel)]="album.is_live" trans></mat-checkbox>  
+                    
+                    <label class="type-checkbox" for="is_live" trans>Mix</label>
+                    <mat-checkbox class="type-checkbox" name="is_mix" labelPosition="before" id="is_mix" [(ngModel)]="album.is_mix" trans></mat-checkbox>  
+                    
+                    <label class="type-checkbox" for="is_live" trans>Compilation</label>
+                    <mat-checkbox class="type-checkbox" name="is_comp" labelPosition="start" id="is_comp" [(ngModel)]="album.is_comp" trans></mat-checkbox>
+                    
+                    <label></label>
+                    <mat-slide-toggle class="type-checkbox" name="is_premium" id="is_premium" [(ngModel)]="album.is_premium" trans>
+                        Premium
+                    </mat-slide-toggle>
+                </div>
+        
+                <div class="input-container">
+                    <label for="album-release-date" trans>Release Date</label>
+                    <input type="text" [(ngModel)]="album.release_date" id="album-release-date" name="release_date" required>
+                    <div class="error" *ngIf="errors.release_date">{{errors.release_date}}</div>
+                </div>
+                
+                <div class="input-container multi-input-container">
+                    
+                        <label for="UPC" trans>UPC</label>
+                        <input type="text" [(ngModel)]="album.UPC" id="UPC" name="UPC">
+                        <div class="error" *ngIf="errors.UPC">{{errors.UPC}}</div>
+                    
+                        <label class="not-first" for="label_year" trans>Label</label>
+
+                        <input class="smal-number" type="number" [(ngModel)]="album.label_year" id="label_year" min="1900" max="2100" name="label_year">                    
+                        <div class="error" *ngIf="errors.label_year">{{errors.label_year}}</div>
+
+                        <input type="text" [(ngModel)]="album.label_label" id="label_label" name="label_label">
+                        <div class="error" *ngIf="errors.label_label">{{errors.label_label}}</div>
+                    
+                    
+                </div>                
+                
+                <div class="input-container multi-input-container">
+                    
+                    <label for="distribution_comp" trans>Distribution Company</label>
+                    <input type="text" [(ngModel)]="album.distribution_comp" id="distribution_comp" name="distribution_comp">
+                    <div class="error" *ngIf="errors.distribution_comp">{{errors.distribution_comp}}</div>
+                    
+                    <label class="not-first" for="licence_comp" trans>Licence Company</label>
+                    <input type="text" [(ngModel)]="album.licence_comp" id="licence_comp" name="licence_comp">
+                    <div class="error" *ngIf="errors.licence_comp">{{errors.licence_comp}}</div>
+                    
+                    <label class="not-first" for="album-popularity" trans>Popularity</label>
+                    <input class="smal-number" type="number" [(ngModel)]="album.spotify_popularity" id="album-popularity" min="1" max="100" name="spotify_popularity">
+                    <div class="error" *ngIf="errors.spotify_popularity">{{errors.spotify_popularity}}</div>
+                </div>                
+                                
+                <div class="input-container with-addon">
+                    <label for="album-image" trans>Image</label>
+                    <button type="button" class="no-style addon" (click)="openInsertImageModal()" matTooltip="Upload image">
+                        <svg-icon name="file-upload"></svg-icon>
+                    </button>
+                    <input type="url" [(ngModel)]="album.image" id="album-image" name="image">
+                    <div class="error" *ngIf="errors.image">{{errors.image}}</div>
+                </div>
+            </div>
+        </div>
+
+        <album-tracks-table [album]="album" [artist]="artist"></album-tracks-table>
+    </form>
+</mat-dialog-content>

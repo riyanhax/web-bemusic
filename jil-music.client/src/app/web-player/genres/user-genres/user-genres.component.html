@@ -1,0 +1,224 @@
+<div class="scroll-container" customScrollbar #scrollContainer>
+    <!-- <filterable-page-header [filterQuery]="filterQuery" class="margin">
+        <span trans>Home</span>
+    </filterable-page-header> -->
+
+    <ad-host slot="ad_slot_1"></ad-host>
+
+    <ngx-hm-carousel *ngIf="ngxHmCarousel.albums.length > 0" [class.descktop]="!state.isMobile" [(ngModel)]="ngxHmCarousel.index" (ngModelChange)="indexChanged($event)"
+        [autoplay]="ngxHmCarousel.autoplay" [infinite]="ngxHmCarousel.infinite" [between-delay]="2000" class="carousel c-accent">
+
+        <section ngx-hm-carousel-container class="content">
+            <article class="item cursor-pointer" *ngFor="let album of ngxHmCarousel.albums" ngx-hm-carousel-item>
+                <div class="img" [style.backgroundImage]="'url('+album.image+')'">
+                    <div class='slider-grid'>
+                        <div class="slider-album-img">
+                            <img [src]="album.image">
+                        </div>
+                        <div class="slider-info">
+                            <span class="slider-album-name">{{album.name}}</span>
+                            <span class="slider-album-artist">{{album.artist.name}}</span>
+                            <a class="slider-album-link button primary" [routerLink]="urls.album(album)" trans>Discovrir</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <ng-template #carouselPrev *ngIf="!state.isMobile">
+            <div class="click-area">
+                <svg-icon name="keyboard-arrow-left" class="align-middle"></svg-icon>
+            </div>
+        </ng-template>
+        <ng-template #carouselNext *ngIf="!state.isMobile">
+            <div class="click-area">
+                <svg-icon name="keyboard-arrow-right" class="align-middle"></svg-icon>
+            </div>
+        </ng-template>
+
+        <ng-template #carouselDot let-model>
+            <div class="ball bg-accent" [class.visible]="model.index === model.currentIndex"></div>
+        </ng-template>
+
+        <ng-template #carouselProgress let-progress>
+            <div class="progress" *ngIf="progress > 0" [style.width]="(ngxHmCarousel.direction==='right' ? progress : 100 - progress) + '%'"></div>
+        </ng-template>
+
+    </ngx-hm-carousel>
+
+
+    <mat-list>
+        <mat-list-item trans>Selection</mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+
+    <ngx-hm-carousel *ngIf="ngxHmCarouselTrack.tracks.length > 0 && !state.isMobile" [class.descktop]="!state.isMobile" [(ngModel)]="ngxHmCarouselTrack.index" (ngModelChange)="indexChanged($event)"
+            [autoplay]="ngxHmCarouselTrack.autoplay" [infinite]="ngxHmCarouselTrack.infinite" [show-num]="ngxHmCarouselTrack.showNum" [between-delay]="2000" class="carousel c-accent">
+    
+            <section ngx-hm-carousel-container class="content">
+                <article class="item cursor-pointer" *ngFor="let track of ngxHmCarouselTrack.tracks; index as i" ngx-hm-carousel-item>
+                    <div class="img">
+                        <single-track-item [track]="track" [class.isShow]="i == 1" (click)="onTrackChange(i)"></single-track-item>
+                    </div>
+                </article>
+            </section>
+    
+            <ng-template #carouselPrev *ngIf="!state.isMobile">
+                <div class="click-area">
+                    <svg-icon name="keyboard-arrow-left" class="align-middle"></svg-icon>
+                </div>
+            </ng-template>
+            <ng-template #carouselNext *ngIf="!state.isMobile">
+                <div class="click-area">
+                    <svg-icon name="keyboard-arrow-right" class="align-middle"></svg-icon>
+                </div>
+            </ng-template>
+    
+            <ng-template #carouselDot let-model>
+                <div class="ball bg-accent" [class.visible]="model.index === model.currentIndex"></div>
+            </ng-template>
+    
+        </ngx-hm-carousel>
+
+    <ngx-slick class="carousel genres" #slickModalPlaylista="slick-modal" [config]="slideConfig" *ngIf="state.isMobile && ngxHmCarouselTrack.tracks.length > 0">
+        <single-track-item ngxSlickItem *ngFor="let track of ngxHmCarouselTrack.tracks" class="slide albums" [inModal]="true" [track]="track"></single-track-item>
+    </ngx-slick>
+
+    <mat-list>
+        <mat-list-item trans>
+            <a class="top-link button primary" routerLink="/top-50" trans>Top 50</a>
+        </mat-list-item>
+    </mat-list>
+
+    <mat-list>
+        <mat-list-item trans>Genres</mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+
+    <media-grid class="genreGroupGrid">
+        <mat-button-toggle-group class="genreGroupFilter" #userGenreGroup="matButtonToggleGroup" [value]="selectedGenreGroup" (change)="onGroupGenreChange(userGenreGroup.value)">
+            <mat-button-toggle value="popular" class="media-grid-item genreGroup" trans>Top 50</mat-button-toggle>
+            <mat-button-toggle value="resent" class="media-grid-item genreGroup" trans>Resent</mat-button-toggle>
+            <mat-button-toggle value="favorite" class="media-grid-item genreGroup" trans>Favorit</mat-button-toggle>
+        </mat-button-toggle-group>
+    </media-grid>
+
+    <ngx-slick class="carousel genres" #slickModal="slick-modal" [config]="slideConfig" *ngIf="state.isMobile">
+        <a ngxSlickItem class="slide media-grid-item genre" *ngFor="let genre of filteredItems" [routerLink]="urls.genre(genre)">
+            <div class="img-container">
+                <img class="lazy-loaded" [src]="wpImages.getDefault('artist')" [lazyLoad]="wpImages.getGenreImage(genre)" [scrollTarget]="scrollContainer">
+            </div>
+            <div class="name">{{genre.name}}</div>
+        </a>
+    </ngx-slick>
+
+    <media-grid class="genres" *ngIf="!state.isMobile">
+        <a class="media-grid-item genre" *ngFor="let genre of filteredItems" [routerLink]="urls.genre(genre)">
+            <div class="img-container">
+                <img class="lazy-loaded" [src]="wpImages.getDefault('artist')" [lazyLoad]="wpImages.getGenreImage(genre)" [scrollTarget]="scrollContainer">
+            </div>
+            <div class="name">{{genre.name}}</div>
+        </a>
+    </media-grid>
+
+    <no-results-message *ngIf="!filteredItems || ! filteredItems.length">
+        <span primary-text trans>No genres found.</span>
+    </no-results-message>
+
+    <mat-list>
+        <mat-list-item trans>Artists</mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+
+    <media-grid class="genreGroupGrid">
+        <mat-button-toggle-group class="genreGroupFilter" #userArtistGroup="matButtonToggleGroup" [value]="selectedArtistGroup" (change)="onGroupArtistChange(userArtistGroup.value)">
+            <mat-button-toggle value="popular" class="media-grid-item genreGroup" trans>Top 50</mat-button-toggle>
+            <mat-button-toggle value="resent" class="media-grid-item genreGroup" trans>Resent</mat-button-toggle>
+            <mat-button-toggle value="favorite" class="media-grid-item genreGroup" trans>Favorit</mat-button-toggle>
+        </mat-button-toggle-group>
+    </media-grid>
+
+    <ngx-slick class="carousel genres" #slickModalArtists="slick-modal" [config]="slideConfig" *ngIf="state.isMobile">
+        <artist-item ngxSlickItem *ngFor="let artist of artistList" class="slide artists" [inModal]="true" [artist]="artist"></artist-item>
+    </ngx-slick>
+
+    <media-grid class="genres" *ngIf="!state.isMobile">
+        <artist-item *ngFor="let artist of artistList" [artist]="artist"></artist-item>
+    </media-grid>
+
+    <no-results-message *ngIf="!artistList || ! artistList.length">
+        <span primary-text trans>No artists found.</span>
+    </no-results-message>
+
+    <ad-host slot="ad_slot_2" class="margin-bottom"></ad-host>
+
+    <mat-list>
+        <mat-list-item trans>Albums</mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+
+    <media-grid class="genreGroupGrid">
+        <mat-button-toggle-group class="genreGroupFilter" #userAlbumGroup="matButtonToggleGroup" [value]="selectedAlbumGroup" (change)="onGroupAlbumChange(userAlbumGroup.value)">
+            <mat-button-toggle value="popular" class="media-grid-item genreGroup" trans>Top 50</mat-button-toggle>
+            <mat-button-toggle value="resent" class="media-grid-item genreGroup" trans>Resent</mat-button-toggle>
+            <mat-button-toggle value="favorite" class="media-grid-item genreGroup" trans>Favorit</mat-button-toggle>
+        </mat-button-toggle-group>
+    </media-grid>
+
+    <ngx-slick class="carousel genres" #slickModalAlbums="slick-modal" [config]="slideConfig" *ngIf="state.isMobile">
+        <album-item ngxSlickItem *ngFor="let album of albumList" class="slide albums" [inModal]="true" [album]="album" [contextMenu]="{item: album, type: 'album'}"></album-item>
+    </ngx-slick>
+    
+
+    <media-grid class="genres" *ngIf="!state.isMobile">
+        <album-item *ngFor="let album of albumList" [album]="album" [contextMenu]="{item: album, type: 'album'}"></album-item>
+    </media-grid>
+
+    <no-results-message *ngIf="!albumList || ! albumList.length">
+        <span primary-text trans>No albums found.</span>
+    </no-results-message>
+
+    <mat-list>
+        <mat-list-item trans>PlayLists</mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+
+    <media-grid *ngIf="!state.isMobile" class="library-playlists">
+        <div class="playlists">
+            <div class="playlist" *ngFor="let playlist of playlists">
+                <a [routerLink]="urls.playlist(playlist)">
+                    <img [src]="getImage(playlist)">
+                    <div class="name">
+                        <div class="playlist-first">
+                            <div>{{playlist.name}}</div>
+                            <div class="tracks-count">{{playlist['tracks_count']}} <span trans>Songs</span></div>
+                        </div>
+                        <div *ngIf="!state.isMobile" class="tracks-count">{{playlist.description}}</div>
+                    </div>
+                </a>
+                <button class="no-style options-button" (click)="showContextMenu(playlist, $event)">
+                    <svg-icon name="more-vert"></svg-icon>
+                </button>
+            </div>
+        </div>
+    </media-grid>
+
+    <!--<ngx-slick class="carousel genres" #slickModalPlaylista="slick-modal" [config]="slideConfig" *ngIf="state.isMobile">
+        <playlist-item ngxSlickItem *ngFor="let playlist of playlists" class="slide albums" [inModal]="true" [playlist]="playlist" [showSongCount]="true"></playlist-item>
+    </ngx-slick>-->
+
+    <!-- <div class="playlists-rows" *ngIf="state.isMobile"> -->
+    <div *ngIf="state.isMobile">
+        <ng-container *ngFor="let playlist of playlists">
+            <!-- <playlist-item-as-row [playlist]="playlist" [inModal]="true" [showSongCount]="true" [scrollContainer]="scrollContainer"></playlist-item-as-row> -->
+            <div class="playlists-rows" *ngIf="state.isMobile">
+                <playlist-item-as-row [playlist]="playlist" [inModal]="true" [showSongCount]="true"></playlist-item-as-row>
+            </div>            
+            <playlist-item-as-slider *ngIf="playlist.tracks" [playlist]="playlist" [inModal]="true" [showSongCount]="true"></playlist-item-as-slider>
+        </ng-container>
+    </div>
+
+    <ad-host slot="ad_slot_2" class="margin-bottom"></ad-host>
+
+    <media-grid></media-grid>
+</div>

@@ -1,0 +1,12 @@
+<div class="img-container wrapper-r">
+    <img [src]="wpImages.getDefault('album')" [lazyLoad]="album.image" [scrollTarget]="scrollContainer" class="lazy-loaded">
+    <playback-control-button (play)="play()" (pause)="pause()" [playing]="playing()"></playback-control-button>
+    <div class="ribbon-wrapper-green" *ngIf="album.is_premium"><div class="ribbon-green">Premium</div></div>
+</div>
+<div class="footer">
+    <a class="album-name primary-text" *ngIf="!inModal" [routerLink]="urls.album(album)">{{album.name}}</a>
+    <a class="album-name primary-text" *ngIf="inModal" (click)="openHomeAlbumModal(album)">{{album.name}}</a>
+
+    <a class="artist-name secondary-text" *ngIf="album.artist && !inModal" [routerLink]="urls.artist(album.artist)">{{album.artist.name}}</a>
+    <a class="artist-name secondary-text" *ngIf="album.artist && inModal" (click)="openHomeArtistModal(album.artist)">{{album.artist.name}}</a>
+</div>

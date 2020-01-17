@@ -1,0 +1,60 @@
+<div class="header">
+    <div class="title">Video ads</div>
+    <div class="subtitle" trans>Configure video ads to show to not premium users.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate>
+        
+    <div class="input-container">        
+        <div class="input-container">            
+            <mat-slide-toggle [(ngModel)]="avalibleTypes.video" [ngModelOptions]="{standalone: true}" trans>Local video</mat-slide-toggle>            
+            <p trans>Video files uploaded on server</p>
+        </div>
+    </div>
+
+    <div class="input-container">        
+        <div class="input-container">            
+            <mat-slide-toggle [(ngModel)]="avalibleTypes.promo" [ngModelOptions]="{standalone: true}" trans>Promo content</mat-slide-toggle>            
+            <p trans>Promote new playlist, album, artist or song from server content</p>
+        </div>
+    </div>
+
+    <div class="input-container">        
+        <div class="input-container">            
+            <mat-slide-toggle [(ngModel)]="avalibleTypes.custom" [ngModelOptions]="{standalone: true}" trans>Sponsorized</mat-slide-toggle>            
+            <p trans>Promote sponsorized link</p>
+        </div>
+    </div>
+
+    <div class="input-container">        
+        <div class="input-container">            
+            <mat-slide-toggle [(ngModel)]="avalibleTypes.adscene" [disabled]="true" [ngModelOptions]="{standalone: true}" trans>ADScene</mat-slide-toggle>            
+            <p trans>Monetize with ADScene</p>
+        </div>
+    </div>
+
+    <div class="input-container">        
+        <div class="input-container">            
+            <mat-slide-toggle [(ngModel)]="avalibleTypes.adsima" [disabled]="true" [ngModelOptions]="{standalone: true}" trans>Google IMA</mat-slide-toggle>            
+            <p trans>Monetize with Google Interactive Media Ads</p>
+        </div>
+    </div>
+  
+    <ng-container>
+        <div class="input-container">
+            <label for="videoads_count" trans>Ad block frequency</label>
+            <input name="videoads_count" id="videoads_count" [(ngModel)]="state.client['videoads_count']" required>
+            <p trans>Show ad after XXX tracks</p>
+        </div>
+    </ng-container>
+
+    <ng-container>
+        <div class="input-container">
+            <label for="videoads_limit" trans>Limit of ads</label>
+            <input name="videoads_limit" id="videoads_limit" [(ngModel)]="state.client['videoads_limit']" required>
+            <p trans>Limit of ads to show to user for 24 hours</p>
+        </div>
+    </ng-container>
+    
+    <button mat-raised-button color="accent" class="button primary update-button" type="submit">Update</button>
+</form>

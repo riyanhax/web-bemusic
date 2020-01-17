@@ -1,0 +1,132 @@
+@import "../../../../scss/variables";
+
+albums-page {
+  display: block;
+
+  .input-container-fetch{
+    display: inline;
+
+    >input{
+        height: 36px;
+        margin-left: 20px;
+        margin-right: 5px;
+        width: auto;
+    }
+    
+  }
+
+}
+
+.set_state-pending{
+    color: orange;
+    text-transform: capitalize;
+}
+.set_state-validate{
+    color: green;
+    text-transform: capitalize;
+}
+.set_state-rejected{
+    color: red;
+    text-transform: capitalize;
+}
+
+.admin-table-panel .mat-table .mat-column-image > .wrapper-r img {
+    width: 35px;
+    height: 35px;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.mat-option.mobile-track-list-row-fetch {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 5px 0;
+    padding: 0 5px;
+    height: auto;
+
+    >.mat-option-text{
+        display: flex;
+        width: 100%;
+        line-height: 1.4;
+    
+        >.track-info {
+          flex: 1 1 auto;
+          min-width: 0;
+          pointer-events: none;
+    
+          >.track-single-img {
+            float: left;
+            margin-right: 10px;
+    
+            >img{
+              border-radius: 50%;
+              width: 40px;
+              height: 40px;
+            }
+          }
+    
+          > .track-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;            
+          }
+    
+          > .artist-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1.3rem;
+            color: rgba(0, 0, 0, 0.54);
+          }
+        }
+    
+        .options-button {
+          display: block;
+          flex: 0 0 24px;
+          width: 24px;
+          margin-left: 10px;
+        }
+    }
+    
+  }
+
+.wrapper-r {  
+    position: relative;
+  }
+  
+  .ribbon-wrapper-green-small-adm {
+    width: 35px;
+    height: 25px;
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+  
+  .ribbon-green-small-adm {
+    font: bold 6px Sans-Serif;
+    color: #333;
+    text-align: center;
+    text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    position: relative;
+    padding: 5px 15px;
+    left: 10px;
+    top: 4px;
+    width: 35px;
+    background-color: #BFDC7A;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#BFDC7A), to(#8EBF45)); 
+    background-image: -webkit-linear-gradient(top, #BFDC7A, #8EBF45); 
+    background-image:    -moz-linear-gradient(top, #BFDC7A, #8EBF45); 
+    background-image:     -ms-linear-gradient(top, #BFDC7A, #8EBF45); 
+    background-image:      -o-linear-gradient(top, #BFDC7A, #8EBF45); 
+    color: #6a6340;
+    -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+    -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+    box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+  }
+  

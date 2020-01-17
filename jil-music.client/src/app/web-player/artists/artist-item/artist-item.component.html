@@ -1,0 +1,9 @@
+<div class="img-container">
+    <img [src]="wpImages.getDefault('artist')" [lazyLoad]="artist.image_small" [scrollTarget]="scrollContainer" class="lazy-loaded">
+    <playback-control-button (play)="play()" (pause)="pause()" [playing]="playing()"></playback-control-button>
+</div>
+<div class="footer">
+    <a class="artist-name primary-text" *ngIf="!inModal" [routerLink]="urls.artist(artist)">{{artist.name}}</a>    
+    <a class="artist-name primary-text" [class.name-centred]="inModal" *ngIf="inModal"  (click)="openHomeArtistModal(artist)">{{artist.name}}</a>
+    <ng-content select=".secondary-text"></ng-content>
+</div>

@@ -1,0 +1,16 @@
+<div class="nav" *ngIf="state.isMobile">
+    <a routerLink="settings" class="nav-item" routerLinkActive="active">
+        <svg-icon name="settings"></svg-icon>
+        <span class="name" trans>Settings</span>
+    </a>
+    <a routerLink="subscription" class="nav-item" routerLinkActive="active">
+        <svg-icon name="credit-card"></svg-icon>
+        <span class="name" trans>Subscription</span>
+    </a>
+    <a routerLink="my-genres-setting" class="nav-item" routerLinkActive="active">
+        <svg-icon name="local-offer"></svg-icon>
+        <span class="name" trans>Favorite Genres</span>
+    </a>    
+</div>
+
+<router-outlet></router-outlet>

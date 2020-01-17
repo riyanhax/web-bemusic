@@ -1,0 +1,71 @@
+<div class="scroll-container">
+  <material-navbar [menuPosition]="settings.get('vebto.navbar.defaultPosition')" *ngIf="!settings.get('vebto.accountSettings.hideNavbar')"></material-navbar>
+
+  <section class="stepper-progress-section">
+    <mat-progress-bar class="stepper-progress-margin" [color]="color" [mode]="mode" [value]="value">
+    </mat-progress-bar>
+  </section>
+
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <h3 trans>Vous Etes Plutot Quelle Genre?</h3>
+        <p trans>Selectionner Au Moin 3 Style</p>
+        <mat-form-field class="hidden-valid">
+          <input matInput formControlName="firstCtrl" class="hidden">
+        </mat-form-field>
+        <div class="scroll-container-grid" [class.is-mobile]="isMobile">
+          <div class="media-grid-genre" *ngIf="mygenres">
+            <a class="media-grid-genre-item" *ngFor="let genre of avaliblegenres;" [class.active]="isSelectedGenre(genre.name)" (click)="selectGenre(genre)">
+              <div class="img-container">
+                <img class="lazy-loaded" [src]="wpImages.getGenreImage(genre)">
+              </div>
+              <div class="name">{{genre.name}}</div>
+            </a>
+          </div>
+        </div>
+        <div class="stepper-next">
+          <button mat-raised-button matStepperNext color="accent" class="button primary submit-button" trans>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <h3 trans>Selectionner Vos Artistes Preferer</h3>
+        <mat-form-field class="hidden-valid">
+          <input matInput formControlName="secondCtrl" class="hidden">
+        </mat-form-field>
+
+        <div class="scroll-container-grid" [class.is-mobile]="isMobile">
+          <div class="media-grid-genre">
+            <a class="media-grid-genre-item" *ngFor="let artist of avaliblartists;" [class.active]="isSelectedArtist(artist.id)" (click)="selectArtist(artist)">
+              <div class="artist">
+                  <img class="lazy-loaded" [src]="artist.image_small">
+                  <div class="artist-name">{{artist.name}}</div>
+                  <div class="artist-icon">
+                      <!-- <svg-icon [name]="isSelectedArtistIcon(artist.id)"></svg-icon> -->
+                      <svg-icon name="add" class="add"></svg-icon>
+                      <svg-icon name="check" class="check"></svg-icon>
+                  </div>                  
+              </div>                
+            </a>
+          </div>
+        </div>
+        <div class="stepper-next stepper-next-back">
+          <button mat-raised-button matStepperPrevious color="warn" class="button primary submit-button submit-button-back" trans>Back</button>
+          <button mat-raised-button matStepperNext color="accent" class="button primary submit-button submit-button-next" trans>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <h3>You are now done.</h3>      
+      <div class="stepper-next stepper-next-finish">
+          <button mat-raised-button matStepperPrevious color="warn" class="button primary submit-button submit-button-back" trans>Back</button>
+          <button mat-raised-button matStepperNext color="accent" [routerLink]="['']" class="button primary submit-button submit-button-next" trans>Go Home Page</button>
+      </div>      
+    </mat-step>
+  </mat-horizontal-stepper>
+
+</div>

@@ -1,0 +1,40 @@
+<div class="header">
+    <div class="title">Twilio Service</div>
+    <div class="subtitle" trans>Configure twilio service integration and credentials.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate>
+    
+    <div class="setting-toggle-container twilio">
+        <mat-slide-toggle name="twilio_enable" id="twilio_enable" [(ngModel)]="state.client['twilio_enable']" trans>Twilio Service</mat-slide-toggle>
+        <p trans>Enable Registration/Login into the site via phone number and SMS verification by Twilio.</p>
+    </div>
+
+    <ng-container>
+        <div class="input-container">
+            <label for="twilio_account_sid" trans>Twilio Account SID</label>
+            <input name="twilio_account_sid" id="twilio_account_sid" [(ngModel)]="state.server['twilio_account_sid']" required>
+            <p trans>Your Account SID from www.twilio.com/console.</p>
+        </div>
+
+        <div class="input-container">
+            <label for="twilio_auth_token" trans>Twilio Auth Token</label>
+            <input name="twilio_auth_token" id="twilio_auth_token" [(ngModel)]="state.server['twilio_auth_token']" required>
+            <p trans>Your Auth Token from www.twilio.com/console.</p>
+        </div>
+
+        <div class="input-container">
+            <label for="twilio_phone_number" trans>Twilio Phone Number</label>
+            <input name="twilio_phone_number" id="twilio_phone_number" [(ngModel)]="state.server['twilio_phone_number']" required placeholder="+****-***-****">
+            <p trans>Phone Number a valid Twilio number</p>
+        </div>
+
+        <div class="input-container">
+            <label for="twilio_app_sid" trans>Twilio Application SID</label>
+            <input name="twilio_app_sid" id="twilio_app_sid" [(ngModel)]="state.server['twilio_app_sid']">
+            <p trans>Your Application SID from www.twilio.com/console.</p>
+        </div>
+    </ng-container>
+    
+    <button mat-raised-button color="accent" class="button primary update-button" type="submit">Update</button>
+</form>

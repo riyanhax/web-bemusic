@@ -1,0 +1,42 @@
+.user-subscriptions-modal-container {
+  min-width: 50%;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+user-subscriptions-modal {
+  display: block;
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    max-height: 40%;
+    overflow: scroll;
+  }
+  table td{
+    border: solid black 1px;
+  }
+
+  .search, .icon-search{
+    display: none;
+  }
+
+  .admin-table-panel .admin-table-panel-header > .header-inner,
+  mat-checkbox,
+  .cdk-column-select {
+    display: none;
+  } 
+  
+  //.mat-cell, .mat-footer-cell {
+  //  font-size: 10px;
+  //}
+  mat-footer-row, mat-row {
+    min-height: 20px; 
+  }
+  .mat-cell {
+   color: crimson ; 
+  }
+  .deposit {
+    color: forestgreen;
+  }
+}

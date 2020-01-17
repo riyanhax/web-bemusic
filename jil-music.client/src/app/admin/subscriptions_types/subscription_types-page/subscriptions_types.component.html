@@ -1,0 +1,45 @@
+<data-table [dataSource]="dataSource" itemsName="susbcriptions_types" matSort>
+    <button mat-raised-button color="accent" (click)="openCrupdateSubscriptionsTypeModal()" *ngIf="currentUser.hasPermission('tracks.create')" headerActions trans>Add</button>
+    <button mat-raised-button color="accent" (click)="showVouchersPricesModal()" *ngIf="currentUser.hasPermission('tracks.create')" headerActions trans>Vouchers Prices on Wallet</button>
+
+    <button mat-raised-button color="accent" (click)="maybeActivateSelectedSubscriptionsTypes()" *ngIf="currentUser.hasPermission('tracks.create')" headerSelectedActions trans>
+        Acivate
+    </button>
+    
+    <button mat-raised-button color="warn" (click)="maybeDisableSelectedSubscriptionsTypes()" *ngIf="currentUser.hasPermission('tracks.create')" headerSelectedActions trans>
+        Disable
+    </button>
+
+    <button mat-icon-button (click)="maybeDeleteSelectedSubscriptionsTypes()" *ngIf="currentUser.hasPermission('tracks.delete')" headerSelectedActions trans>
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let subscriptions_type"> {{subscriptions_type.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="validity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Validity</mat-header-cell>
+        <mat-cell *matCellDef="let subscriptions_type"> {{subscriptions_type.validity}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Price</mat-header-cell>
+        <mat-cell *matCellDef="let subscriptions_type"> {{subscriptions_type.price}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Status</mat-header-cell>
+        <mat-cell *matCellDef="let subscriptions_type"> {{subscriptions_type.status}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let subscriptions_type">
+            <button mat-icon-button (click)="openCrupdateSubscriptionsTypeModal(subscriptions_type)" *ngIf="currentUser.hasPermission('subscriptions_type.update')" matTooltip="Edit Subscriptions Type">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

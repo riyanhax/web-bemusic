@@ -1,0 +1,263 @@
+import {AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild, ViewEncapsulation} from '@angular/core';
+import {FormattedDuration} from "../../../player/formatted-duration.service";
+import {AdsPlayer} from "../../ads-player.service";
+import {Subscription} from "rxjs";
+
+import {AdsPlayerState} from "../../ads-player-state.service";
+
+@Component({
+  selector: 'ads-seekbar',
+  templateUrl: './ads-seekbar.component.html',
+  styleUrls: ['./ads-seekbar.component.scss'],
+  encapsulation: ViewEncapsulation.None
+})
+export class AdsSeekbarComponent implements AfterViewInit, OnDestroy {
+    @ViewChild('outerTrack') private outerTrack: ElementRef;
+    @ViewChild('progressTrack') private progressTrack: ElementRef;
+    @ViewChild('progressHandle') private progressHandle: ElementRef;
+    @ViewChild('elapsedTimeEl') private elapsedTimeEl: ElementRef;
+    @ViewChild('trackLengthEl') private trackLengthEl: ElementRef;
+
+    /**
+     * Seekbar interval timer.
+     */
+    private seekbarInterval;
+
+    /**
+     * Seekbar interval timer.
+     */
+    private seekbarIntervalValue;
+
+    /**
+     * Formatted time that has elapsed since playback start.
+     */
+    public elapsedTime: string = '0:00';
+
+    /**
+     * Total length of currently loaded track.
+     */
+    public trackLength: number = 0;
+
+    private subscriptions: Subscription[] = [];
+
+    private cache: {
+        outerTrackRect?: ClientRect,
+        handleRect?: ClientRect,
+        handlePercent?: number,
+        handleEl?: HTMLElement,
+        progressTrackEl?: HTMLElement
+    } = {};
+
+    /**
+     * SeekViaDragDirective Constructor.
+     */
+    constructor(
+        private el: ElementRef,
+        private duration: FormattedDuration,
+        private player: AdsPlayer,
+        private zone: NgZone,
+        private state: AdsPlayerState,
+    ) {}
+
+    /**
+     * Called after component's view has been fully initialized.
+     */
+    ngAfterViewInit() {
+        //wait for animations to complete
+        //TODO: refactor this to use events instead
+        setTimeout(() => {
+            this.setupCache();
+            this.bindToPlayerStateEvents();
+        }, 201);
+    }
+
+    /**
+     * Called when component is destroyed.
+     */
+    ngOnDestroy() {
+        this.stopSeekbarInterval();
+        this.subscriptions.forEach(subscription => {
+            subscription.unsubscribe();
+        });
+        this.subscriptions = [];
+    }
+
+    /**
+     * Cache sizes required for positioning seekbar progress and handle.
+     */
+    private setupCache() {
+        this.cache.outerTrackRect = this.outerTrack.nativeElement.getBoundingClientRect();
+        this.cache.handleRect = this.progressHandle.nativeElement.getBoundingClientRect();
+        this.cache.handlePercent = (this.cache.handleRect.width / this.cache.outerTrackRect.width) * 100 / 2;
+        this.cache.handleEl = this.progressHandle.nativeElement;
+        this.cache.progressTrackEl = this.progressTrack.nativeElement;
+    }
+
+
+    /**
+     * Set time that has elapsed since playback start.
+     */
+    private setElapsedTime(time: number = null) {
+        // if (time === null) time = this.player.getCurrentTime();
+        // this.elapsedTime = time ? this.duration.fromSeconds(time) : '0:00';
+        this.elapsedTime = '0:00';
+        this.elapsedTimeEl.nativeElement.textContent = this.elapsedTime;
+    }
+
+    /**
+     * Set total length of currently loaded track.
+     */
+    private setTrackLength() {
+        const duration = this.player.getDuration();
+        if (duration === this.trackLength) return;
+        this.trackLength = duration;
+        const formatted = duration ? this.duration.fromSeconds(this.trackLength) : '0:00';
+        this.trackLengthEl.nativeElement.textContent = formatted;
+    }
+
+    /**
+     * Seek player to specified point and update seekbar progress.
+     */
+    public seek(clickX: number) {
+        return;
+
+        // if ( ! this.player.cued()) return;
+
+        // this.stopSeekbarInterval();
+
+        // const rect = this.cache.outerTrackRect;
+
+        // let ratio   = (clickX - rect.left) / rect.width,
+        //     percent = ratio*100;
+
+        // if (percent > 100) return;
+
+        // this.positionElapsedTrackAndHandle(percent);
+
+        // return ratio * this.player.getDuration();
+    }
+
+    /**
+     * Start seekbar progress interval.
+     */
+    public startSeekbarInterval() {
+        this.stopSeekbarInterval();
+
+        this.zone.runOutsideAngular(() => {
+            this.seekbarInterval = setInterval(() => {
+                let percent = (this.player.getCurrentTime() / this.player.getDuration()) * 100;
+                if (isNaN(percent)) percent = 0;
+
+                if (percent <= 0) return;
+
+                this.positionElapsedTrackAndHandle(percent);
+
+                this.setElapsedTime();
+                this.setTrackLength();
+            }, 50);
+        })
+    }
+
+    public startCustomSeekbarInterval() {
+        this.stopSeekbarInterval();
+
+        this.zone.runOutsideAngular(() => {
+            this.seekbarInterval = setInterval(() => {  
+
+                this.seekbarIntervalValue += 50;                
+                if(this.seekbarIntervalValue >= this.player.getCustomDuration()){
+                    this.state.firePlaybackCustomEnd();
+                    return;
+                }
+
+                let percent = (this.seekbarIntervalValue / this.player.getCustomDuration()) * 100;                
+                if (isNaN(percent)) percent = 0;                
+                if (percent <= 0) return;
+
+                this.positionElapsedTrackAndHandle(percent);
+                this.setElapsedTime();
+                this.setCustomTrackLength();
+                
+            }, 50);
+        })
+    }    
+
+    /**
+     * Set total length of currently loaded track.
+     */
+    private setCustomTrackLength() {
+        const duration = this.player.getCustomDuration();        
+        if (duration === this.trackLength) return;
+        this.trackLength = duration;               
+        const formatted = duration ? this.duration.fromMilliseconds(this.trackLength) : '0:00';
+        this.trackLengthEl.nativeElement.textContent = formatted;
+    }
+
+    /**
+     * Stop seekbar progress interval.
+     */
+    public stopSeekbarInterval() {
+        this.seekbarIntervalValue = 0;
+        if ( ! this.seekbarInterval) return;
+
+        clearInterval(this.seekbarInterval);
+        this.seekbarInterval = null;
+    }
+
+    /**
+     * Position seekbar progress bar and handle based on specified point.
+     */
+    private positionElapsedTrackAndHandle(leftPercent: number) {
+        let handleLeft = leftPercent - this.cache.handlePercent;
+
+        if (leftPercent < 0) leftPercent = 0;
+        if (handleLeft < 0) handleLeft = 0;
+
+        this.cache.handleEl.style.left = handleLeft+'%';
+        this.cache.progressTrackEl.style.width = leftPercent+'%';
+    }
+
+    /**
+     * Reset seekbar to initial state.
+     */
+    private resetSeekbar() {
+        this.positionElapsedTrackAndHandle(0);
+        this.setElapsedTime(0);
+    }
+
+    /**
+     * Update player controls on player state events.
+     */
+    private bindToPlayerStateEvents() {
+
+        if (this.player.state.playing) {
+            this.startSeekbarInterval();
+        }
+
+        const sub = this.player.state.onChange$.subscribe(type => {            
+            switch (type) {
+                case 'ADS_CUSTOM_PLAYBACK_STARTED':
+                    this.startCustomSeekbarInterval();
+                    break;
+                case 'ADS_BUFFERING_STARTED':
+                    this.stopSeekbarInterval();
+                    break;
+                case 'ADS_PLAYBACK_STARTED':
+                    this.startSeekbarInterval();
+                    break;
+                case 'ADS_PLAYBACK_PAUSED':
+                    this.stopSeekbarInterval();
+                    break;
+                case 'ADS_CUSTOM_PLAYBACK_STOPPED':
+                case 'ADS_PLAYBACK_STOPPED':
+                case 'ADS_CUSTOM_PLAYBACK_ENDED':
+                case 'ADS_PLAYBACK_ENDED':
+                    this.stopSeekbarInterval();
+                    this.resetSeekbar();
+                    break;
+            }
+        });
+
+        this.subscriptions.push(sub);
+    }
+}

@@ -1,0 +1,51 @@
+<div class="carousel">    
+    <div class="video-container current" [class.hidden]="!ads.isType('video') && !ads.isType('adsima')">
+        <div class="video-overlay" *ngIf="!player.cued()"></div>
+        <ng-content class="current"></ng-content>        
+    </div>
+    
+    <div class="video-container current no-video" [class.hidden]="!ads.isType('promo')">
+        <a *ngIf="player.curVideoAds && player.curVideoAds.link" [routerLink]="getPromoLink(player.curVideoAds)">
+            <h2 *ngIf="player.curVideoAds && player.curVideoAds.name">
+                {{player.curVideoAds.name}}
+            </h2>
+            <p *ngIf="player.curVideoAds && player.curVideoAds.text">
+                {{player.curVideoAds.text}}
+            </p>
+            <div class="ads-img-container">
+                <img *ngIf="player.curVideoAds && player.curVideoAds.url" [src]="player.curVideoAds.url">
+                <a *ngIf="player.curVideoAds && player.curVideoAds.link" [routerLink]="getPromoLink(player.curVideoAds)">
+                    <div class="ads-go-text">
+                        <span *ngIf="ads.isType('promo')">Go to {{player.curVideoAds.link_text}}</span>
+                    </div>        
+                </a>                
+            </div>
+        </a>
+    </div>
+
+    <div class="video-container current no-video" [class.hidden]="!ads.isType('custom')">
+            <a *ngIf="player.curVideoAds && player.curVideoAds.link" href="{{player.curVideoAds.link}}">
+                <h2 *ngIf="player.curVideoAds && player.curVideoAds.name">
+                    {{player.curVideoAds.name}}
+                </h2>
+                <p *ngIf="player.curVideoAds && player.curVideoAds.text">
+                    {{player.curVideoAds.text}}
+                </p>
+                <div class="ads-img-container">
+                    <img *ngIf="player.curVideoAds && player.curVideoAds.url" [src]="player.curVideoAds.url">
+                    <a *ngIf="player.curVideoAds && player.curVideoAds.link" href="{{player.curVideoAds.link}}">
+                        <div class="ads-go-text">                            
+                            <span *ngIf="ads.isType('custom')">{{player.curVideoAds.link_text}}</span>
+                        </div>        
+                    </a>                
+                </div>
+            </a>
+        </div>
+
+    <div class="video-container current" [class.hidden]="!ads.isType('adscene')">
+        adscene
+    </div>
+
+</div>
+
+<ads-seekbar></ads-seekbar>

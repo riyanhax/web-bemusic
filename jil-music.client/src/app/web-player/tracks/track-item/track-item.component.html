@@ -1,0 +1,10 @@
+<div class="img-container">
+    <img class="lazy-loaded" src="{{track.album.image}}">
+    <playback-control-button (play)="play()" (pause)="pause()" [playing]="playing()"></playback-control-button>
+</div>
+<div class="footer item-footer">
+    <span class="album-name primary-text">{{track.name}}</span>
+
+    <a class="artist-name secondary-text" *ngIf="track.album.artist && !inModal" [routerLink]="urls.artist(track.album.artist)">{{track.album.artist.name}}</a>
+    <a class="artist-name secondary-text" *ngIf="track.album.artist && inModal" (click)="openHomeArtistModal(track.album.artist)">{{track.album.artist.name}}</a>
+</div>
