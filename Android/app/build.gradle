@@ -1,0 +1,307 @@
+/*
+       Licensed to the Apache Software Foundation (ASF) under one
+       or more contributor license agreements.  See the NOTICE file
+       distributed with this work for additional information
+       regarding copyright ownership.  The ASF licenses this file
+       to you under the Apache License, Version 2.0 (the
+       "License"); you may not use this file except in compliance
+       with the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing,
+       software distributed under the License is distributed on an
+       "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+       KIND, either express or implied.  See the License for the
+       specific language governing permissions and limitations
+       under the License.
+*/
+
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+        maven { url "https://jitpack.io" }
+        google()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'https://maven.fabric.io/public' }
+        maven {
+            url 'https://download.01.org/crosswalk/releases/crosswalk/android/maven2'
+        }
+    }
+
+    // Switch the Android Gradle plugin version requirement depending on the
+    // installed version of Gradle. This dependency is documented at
+    // http://tools.android.com/tech-docs/new-build-system/version-compatibility
+    // and https://issues.apache.org/jira/browse/CB-8143
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
+// Allow plugins to declare Maven dependencies via build-extras.gradle.
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven {
+            url "https://maven.google.com"
+        }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+}
+
+android {
+
+    sourceSets {
+        test {
+            resources.srcDirs += ['src/test/resources']
+        }
+        androidTest {
+            resources.srcDirs += ['src/androidTest/resources']
+        }
+    }
+
+    defaultConfig {
+
+        applicationId "com.digiapp.jilmusic"
+        manifestPlaceholders = [onesignal_app_id               : "Your OneSignal App ID Here",
+                                // Project number pulled from dashboard, local value is ignored.
+                                onesignal_google_project_number: "REMOTE"]
+
+        minSdkVersion 18
+        targetSdkVersion 28
+        versionCode 23
+        versionName "0.9.11-4"
+
+        multiDexEnabled true
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    /*configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {''
+                if (!requested.name.startsWith("multidex")) {
+                    // details.useVersion '25.4.0'
+                    details.useVersion '28.0.0'
+                }
+            }
+        }
+    }*/
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+    lintOptions {
+        abortOnError false;
+    }
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+    signingConfigs {
+        release {
+            keyAlias 'talk2all'
+            keyPassword 'qwe0123'
+            storeFile file('/Users/artem/Documents/GIT/KeyStores/talk2all.jks')
+            storePassword 'qwe0123'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig getSigningConfig()
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "jilmusic." + "${variant.name}-${variant.versionName}.apk"
+                }
+            }
+
+        }
+
+        debug{
+
+        }
+    }
+
+    flavorDimensions "app"
+    productFlavors {
+        aws {
+            dimension "app"
+            versionNameSuffix "-aws"
+            applicationIdSuffix ".aws"
+            ext {
+                serverAPI = [debug: "http://ec2-54-93-65-121.eu-central-1.compute.amazonaws.com/jilmusic-web/api/",
+                          release: "http://ec2-54-93-65-121.eu-central-1.compute.amazonaws.com/jilmusic-web/api/"]
+
+                serverWEB = [debug: "http://ec2-54-93-65-121.eu-central-1.compute.amazonaws.com/jilmusic-web/",
+                             release: "http://ec2-54-93-65-121.eu-central-1.compute.amazonaws.com/jilmusic-web/"]
+            }
+            resValue "string", "app_name", "JilMusic AWS"
+        }
+
+        dev {
+            dimension "app"
+            versionNameSuffix "-dev"
+            applicationIdSuffix ".dev"
+            ext {
+                serverAPI = [debug: "http://jilmusic-dev.digi-app.com/api/",
+                          release: "http://jilmusic-dev.digi-app.com/api/"]
+                serverWEB = [debug: "http://jilmusic-dev.digi-app.com/",
+                             release: "http://jilmusic-dev.digi-app.com/"]
+            }
+
+            resValue "string", "app_name", "JilMusic DEV"
+        }
+
+        old {
+            dimension "app"
+            versionNameSuffix "-old"
+            applicationIdSuffix ".old"
+            ext {
+                serverAPI = [debug: "http://jil-music.digi-app.com/api/",
+                          release: "http://jil-music.digi-app.com/api/"]
+                serverWEB = [debug: "http://jil-music.digi-app.com/",
+                             release: "http://jil-music.digi-app.com/"]
+            }
+
+            resValue "string", "app_name", "JilMusic OLD"
+        }
+    }
+
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        // To check for a certain build type, use variant.buildType.name == "<buildType>"
+        if (names.toString().toLowerCase().contains("old")
+                && names.toString().toLowerCase().contains("aws")) {
+            // Gradle ignores any variants that satisfy the conditions above.
+            setIgnore(true)
+        }
+    }
+
+    applicationVariants.all { variant ->
+        def flavor = variant.productFlavors[0]
+        // println "Setting up server URL ${flavor.ext.serverAPI[variant.buildType.name]} for variant [${variant.name}]"
+        variant.buildConfigField "String", "SERVER_URL", "\"${flavor.ext.serverAPI[variant.buildType.name]}\""
+        variant.buildConfigField "String", "WEB_URL", "\"${flavor.ext.serverWEB[variant.buildType.name]}\""
+    }
+}
+
+def support_ver = '27.1.0'
+// def support_ver = '28.0.0'
+ext {
+    roomVersion = '1.0.0'
+    archLifecycleVersion = '1.1.0'
+}
+
+dependencies {
+    compile fileTree(include: '*.jar', dir: 'libs')
+    implementation 'com.onesignal:OneSignal:3.6.5'
+    // Support frameworks
+    implementation 'com.google.android.gms:play-services-ads:11.2.2'
+    implementation 'com.google.android.gms:play-services-cast-framework:11.2.2'
+    implementation 'com.google.android.support:wearable:2.3.0'
+    implementation 'com.android.support:appcompat-v7:' + support_ver
+    implementation 'com.android.support:cardview-v7:' + support_ver
+    implementation 'com.android.support:mediarouter-v7:' + support_ver
+    implementation 'com.android.support:leanback-v17:' + support_ver
+    implementation 'com.android.support:design:' + support_ver
+    implementation 'com.android.support:percent:' + support_ver
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.android.support:support-v4:27.1.1'
+    //implementation 'com.android.support:support-v4:' + support_ver
+    implementation 'com.android.support:multidex:1.0.3'
+    // UI improvements, Core libs
+    implementation 'io.github.inflationx:calligraphy3:3.0.0'
+    implementation 'io.github.inflationx:viewpump:1.0.0'
+    implementation 'com.facebook.fresco:fresco:1.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.mukeshsolanki:Android-Shared-Preferences-TinyDB-:1.0.3'
+    implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'org.apache.commons:commons-collections4:4.1'
+    implementation 'org.apache.commons:commons-lang3:3.7'
+    implementation 'com.jakewharton:butterknife:9.0.0-rc2'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
+    implementation('org.xwalk:xwalk_core_library:23.53.589.4') {
+        transitive = true;
+    }
+    // implementation 'jp.wasabeef:recyclerview-animators:3.x.x'
+    // File downloaders
+    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT'
+    implementation 'com.liulishuo.filedownloader:library:1.7.4'
+    // Server - Backend
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    // Video Frameworks
+    implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
+    implementation 'com.squareup.okio:okio:1.11.0'
+    implementation 'com.ealva:ealvatag:0.4.2'
+
+    // Room components
+    implementation('android.arch.persistence.room:runtime:1.0.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    annotationProcessor("android.arch.persistence.room:compiler:1.0.0") {
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    // Lifecycle components
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation('android.arch.lifecycle:extensions:1.1.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    annotationProcessor("android.arch.lifecycle:compiler:1.1.0") {
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    compile('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
+        transitive = true;
+    }
+    // tests
+    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'androidx.test:core:1.0.0'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'com.android.support.test:runner:1.0.2'
+}

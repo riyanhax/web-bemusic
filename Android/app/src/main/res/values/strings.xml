@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+   <!-- <string name="app_name">JilMusic</string> -->
+    <string name="app_name_offline_mode">JilMusic (Offline)</string>
+    <string name="launcher_name">@string/app_name</string>
+    <string name="activity_name">@string/launcher_name</string>
+    <string name="title_activity_main_navigation">MainNavigationActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Bottom bar -->
+    <string name="nav_genres">Genres</string>
+    <string name="nav_top">Top 50</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_your">Your Music</string>
+    <string name="nav_account">Account</string>
+    <string name="nav_sub">Subscription</string>
+
+    <string-array name="music_actions_array">
+        <item>Share</item>
+        <item>Delete</item>
+        <item>Selection</item>
+    </string-array>
+
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="video_low">Video low</string>
+    <string name="video_medium">Video medium</string>
+    <string name="video_hight">Video high</string>
+    <string name="audio_only">Audio only</string>
+    <string name="upload_image_fail">Failed to Upload Image</string>
+    <string name="play_from_jilmusic">Play from JilMusic</string>
+    <string name="exlpand_controls">Expand to see controls</string>
+   <!-- <string name="file_browser">File Browser</string> -->
+    <string name="open_file_issue">Cannot Open File Chooser</string>
+    <string name="file_browser">File Browser</string>
+    <string name="file_chooser">File Chooser</string>
+    <!-- <string name="upload_image_fail">Failed to Upload Image</string> -->
+    <string name="delete_selection_question">Are you sure you to delete selection?</string>
+    <string name="text_no_name"><![CDATA[<no name>]]></string>
+    <string name="already_in_selection">Song already in selection</string>
+    <string name="text_added">Added</string>
+    <string name="cant_find_sel">Can\'t find selection</string>
+    <string name="text_cancle">Cancel</string>
+    <string name="text_yes">Yes</string>
+    <string name="press_to_exit">Press Again To Exit</string>
+    <string name="media_is_null">Media Data is null</string>
+    <string name="song_in_selection">Song already in selection</string>
+    <string name="added_to_sel">Added to selection</string>
+    <string name="link_broken">Ooops, looks like our download link broken</string>
+    <string name="download_started">Download started</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="goes_wrong">Ooops, something wrong with Youtube url</string>
+    <string name="no_internet">No Internet</string>
+    <string name="redirected_offline">You will be redirected to offline mode</string>
+    <string name="text_profile_name">Profile name</string>
+    <string name="text_download">Download</string>
+    <string name="text_video_audio">Download Video or Audio?</string>
+    <string name="text_audio">Audio</string>
+    <string name="text_video">Video</string>
+    <string name="select_format">Select format</string>
+    <string name="remove_fav">Remove Favorite</string>
+    <string name="add_favorite">Add to Favorite</string>
+    <string name="choose_sel">Choose selection:</string>
+    <string name="add_new_sel">Add new selection</string>
+    <string name="sel_updated">Selection updated</string>
+    <string name="text_name_required">Name required</string>
+    <string name="new_sel_added">New Selection added</string>
+    <string name="text_discovery">Discovery</string>
+    <string name="top_50">Top 50</string>
+    <string name="search">Search</string>
+    <string name="go_premium">Go Premium</string>
+    <string name="download">Download</string>
+    <string name="toolbar_title">Toolbar Title</string>
+    <string name="new_selection">New Selection</string>
+    <string name="name">Name</string>
+    <string name="create">Create</string>
+    <string name="empty">Empty</string>
+    <string name="favoris">Favoris</string>
+    <string name="all_songs">All Songs</string>
+    <string name="selection">Selection</string>
+    <string name="no_internet_nplease_check_your_connection_and_try_again_nor_check_your_subscription">No Internet. Please check your connection and try again or check your subscription</string>
+    <string name="the_best_music">The Best Music</string>
+    <string name="back">Back</string>
+    <string name="delete">delete</string>
+    <string name="select">Select</string>
+    <string name="profile_name">Profile name</string>
+    <string name="share">Share</string>
+    <string name="add_to_selection">Add to Selection</string>
+    <string name="change_name">Change name</string>
+    <string name="title">Title</string>
+    <string name="text_are_u_sure">Are you sure?</string>
+    <string name="text_cancel">Cancel</string>
+</resources>

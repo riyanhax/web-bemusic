@@ -1,0 +1,49 @@
+<resources>
+
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/textColor</item>
+        <item name="android:textColorSecondary">@color/textColor</item>
+        <item name="android:textColorTertiary">@color/textColor</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="fontPath">fonts/avenir_roman.ttf</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/textColor</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="TextAppearance.FontPath" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/avenir_roman_thin.ttf</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="DialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
+        <item name="android:textColorPrimary">#000000</item>
+    </style>
+
+    <style name="CustomAlertDialogStyle">
+        <item name="android:bottomBright">@color/color_back</item>
+        <item name="android:bottomDark">@color/color_back</item>
+        <item name="android:bottomMedium">@color/color_back</item>
+        <item name="android:centerBright">@color/color_back</item>
+        <item name="android:centerDark">@color/color_back</item>
+        <item name="android:centerMedium">@color/color_back</item>
+        <item name="android:fullBright">@color/color_back</item>
+        <item name="android:fullDark">@color/color_back</item>
+        <item name="android:topBright">@color/color_back</item>
+        <item name="android:topDark">@color/color_back</item>
+    </style>
+
+</resources>

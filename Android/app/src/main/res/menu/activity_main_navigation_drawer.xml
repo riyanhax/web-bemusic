@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_main"
+            android:icon="@drawable/menu_home_icon"
+            android:iconTintMode="src_in"
+            android:title="@string/text_discovery" />
+        <item
+            android:id="@+id/nav_top"
+            android:icon="@drawable/menu_trend_icon"
+            android:title="@string/top_50" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/menu_search_icon"
+            android:title="@string/search" />
+        <item
+            android:id="@+id/nav_premium"
+            android:icon="@drawable/baseline_payment_24px"
+            android:iconTintMode="src_in"
+            android:title="@string/go_premium" />
+        <item
+            android:id="@+id/nav_offline"
+            android:icon="@drawable/archive_icon_colored"
+            android:title="@string/download" />
+
+    </group>
+
+
+</menu>

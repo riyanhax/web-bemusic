@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2014 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<resources>
+
+    <color name="colorPrimary">@color/color_menu</color>
+    <color name="colorPrimaryDark">@color/color_back</color>
+    <color name="colorAccent">@color/tv_branding</color>
+    <color name="textColor">@android:color/black</color>
+    <color name="textColorInactive">#252525</color>
+
+    <color name="color_menu">@android:color/white</color>
+    <color name="color_back">@android:color/white</color>
+    <color name="color_popup">@android:color/white</color>
+    <color name="color_dialog">#b9b9b9</color>
+    <color name="color_offline_item_title">#c2c2ca</color>
+    <color name="color_offline_item_desc">#898b8c</color>
+    <color name="color_progress_tint">#414151</color>
+    <color name="color_progress_active">#689f38</color>
+
+    <color name="exo_error_message_background_color">#ffff5722</color>
+    <color name="tv_branding">#ffff5722</color>
+    <color name="tv_branding_dark">#ffbf360c</color>
+    <color name="tv_branding_accent">#00B8D4</color>
+    <color name="bt_accent">#00B8D4</color>
+    <color name="media_item_icon_playing">@color/bt_accent</color>
+    <color name="media_item_icon_not_playing">@color/textColor</color>
+    <color name="drawer_header_background">@color/bt_accent</color>
+    <color name="error_message_background">#ffff1600</color>
+    <color name="drawer_item_selected_background">#feee</color>
+    <color name="drawer_item_tint_color">#ff333333</color>
+    <color name="fullscreen_secondary_line_color">#E5CCCCCC</color>
+    <color name="fullscreen_line_color">#E5FFFFFF</color>
+    <color name="tv_search_button">#ff0097A7</color>
+    <color name="background_gradient_start">@color/color_back</color>
+    <color name="background_gradient_end">@color/color_back</color>
+    <color name="default_background">#0096a6</color>
+    <color name="item_play_color">#5f959f</color>
+</resources>

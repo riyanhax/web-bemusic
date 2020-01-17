@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright (C) 2014 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/playback_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:animateLayoutChanges="true"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/error_message_background"
+            android:gravity="center"
+            android:paddingBottom="@dimen/error_vertical_padding"
+            android:paddingLeft="@dimen/error_horizontal_padding"
+            android:paddingRight="@dimen/error_horizontal_padding"
+            android:paddingTop="@dimen/error_vertical_padding"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            tools:text="Connectivity error!" />
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/actionsView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="9">
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btnSelectAll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:tint="@color/textColor"
+            android:src="@drawable/baseline_check_box_white_36" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btnDeleteSelected"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:tint="@color/textColor"
+            android:src="@drawable/baseline_delete_outline_white_36" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btnMoveSelection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:tint="@color/textColor"
+            android:src="@drawable/baseline_add_white_36" />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_below="@id/actionsView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/playback_error"></ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

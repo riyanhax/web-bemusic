@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_gravity="bottom"
+    android:layout_marginBottom="50dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="30dp"
+    android:weightSum="1">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/profile_image"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="0.3"
+        android:src="@drawable/profile_placeholder"
+        app:placeholderImage="@drawable/profile_placeholder"
+        app:placeholderImageScaleType="centerInside"
+        app:roundAsCircle="true" />
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.6"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_name"
+            android:textAppearance="@style/TextAppearance.FontPath"
+            android:textColor="@color/textColor" />
+
+        <TextView
+            android:id="@+id/profile_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8dp"
+            android:text="-"
+            android:textAppearance="@style/TextAppearance.FontPath"
+            android:textColor="@color/textColor" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/action_exit"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_weight="0.1"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:tint="@color/textColor"
+        android:src="@drawable/exit_icon" />
+</LinearLayout>

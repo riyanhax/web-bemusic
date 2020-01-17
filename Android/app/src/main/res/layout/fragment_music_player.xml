@@ -1,0 +1,123 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewAnimator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_back"
+    tools:context="com.digiapp.jilmusic.offlineView.views.MusicPlayerFragment">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/favoris" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all_songs" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selection" />
+    </android.support.design.widget.TabLayout>
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tabLayout"
+        android:src="@android:color/white" />
+
+    <LinearLayout
+        android:id="@+id/actionsView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/line"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="9">
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btnSelectAll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_check_box_white_36"
+            android:tint="@color/textColor" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btnDeleteSelected"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_delete_outline_white_36"
+            android:tint="@color/textColor" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btnMoveSelection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_add_white_36"
+            android:tint="@color/textColor" />
+
+    </LinearLayout>
+
+    <!--
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/controls_container"
+        android:layout_below="@+id/line" />
+        -->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/controls_container"
+        android:layout_below="@+id/actionsView"
+        android:visibility="visible"></android.support.v4.view.ViewPager>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/controls_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:cardElevation="8dp">
+
+        <fragment
+            android:id="@+id/fragment_playback_controls"
+            android:name="com.digiapp.jilmusic.offlineView.views.PlaybackControlsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            tools:layout="@layout/fragment_playback_controls" />
+
+    </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+</FrameLayout>
